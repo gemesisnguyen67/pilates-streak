@@ -5,5 +5,13 @@
   "scope": "/pilates-streak/",
   "display": "standalone",
   "background_color": "#184A6E",
-  "theme_color": "#184A6E"
+  "theme_color": "#184A6E",
+  "icons": [
+    {
+      "src": "/pilates-streak/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
