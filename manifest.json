@@ -1,0 +1,9 @@
+{
+  "name": "Pilates Streak",
+  "short_name": "Pilates",
+  "start_url": "/pilates-streak/",
+  "scope": "/pilates-streak/",
+  "display": "standalone",
+  "background_color": "#184A6E",
+  "theme_color": "#184A6E"
+}
