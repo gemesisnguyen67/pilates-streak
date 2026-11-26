@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#184A6E" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Pilates Streak" />
+  <title>Pilates Streak — Cozy Quilt Cat Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Geometric sans-serif pairing (Montserrat & Plus Jakarta Sans) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-prussian: #184A6E;
+      --bg-prussian-deep: #133E5D;
+      --quilt-cream: #F5EFE2;
+      --quilt-cream-warm: #EDE4D0;
+      --ink-navy: #143B58;
+      --crimson-red: #C93B2B;
+      --sky-grid: #90B8D4;
+      --stitch-blue: #79A3C1;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-prussian-deep);
+      color: var(--ink-navy);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-geo {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Portrait mobile container optimized for Samsung One UI one-handed reach */
+    .app-shell {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background-color: var(--bg-prussian);
+      background-image:
+        radial-gradient(circle at 20px 20px, rgba(245, 239, 226, 0.05) 1.5px, transparent 0),
+        linear-gradient(to right, rgba(144, 184, 212, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(144, 184, 212, 0.06) 1px, transparent 1px);
+      background-size: 48px 48px, 24px 24px, 24px 24px;
+      position: relative;
+      padding-bottom: 104px;
+      border-left: 2px solid rgba(144, 184, 212, 0.22);
+      border-right: 2px solid rgba(144, 184, 212, 0.22);
+    }
+
+    @media (max-width: 480px) {
+      .app-shell {
+        border-left: none;
+        border-right: none;
+      }
+    }
+
+    /* Patchwork Quilt Card — Cream fabric patch with stitched dashed border */
+    .quilt-patch {
+      background-color: var(--quilt-cream);
+      color: var(--ink-navy);
+      border: 2.5px solid var(--ink-navy);
+      box-shadow: 4px 4px 0px #0D293E;
+      /* Slightly organic hand-cut quilt corner feel */
+      border-radius: 20px 24px 21px 23px / 23px 20px 24px 21px;
+      position: relative;
+    }
+
+    .quilt-patch::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border: 1.5px dashed var(--stitch-blue);
+      border-radius: 15px 19px 16px 18px / 18px 15px 19px 16px;
+      pointer-events: none;
+    }
+
+    /* Sky-Blue Windowpane Plaid Quilt Patch (matching tiles 2, 3, 6 in 19535.jpg) */
+    .quilt-plaid {
+      background-color: var(--quilt-cream);
+      background-image:
+        linear-gradient(to right, rgba(144, 184, 212, 0.42) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(144, 184, 212, 0.42) 2px, transparent 2px);
+      background-size: 20px 20px;
+      color: var(--ink-navy);
+      border: 2.5px solid var(--ink-navy);
+      box-shadow: 4px 4px 0px #0D293E;
+      border-radius: 22px 19px 23px 20px / 20px 23px 19px 22px;
+      position: relative;
+    }
+
+    /* Tactile stitched button */
+    .quilt-btn {
+      border: 2.5px solid var(--ink-navy);
+      box-shadow: 3px 3px 0px #0D293E;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .quilt-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #0D293E !important;
+    }
+
+    .btn-cream {
+      background-color: var(--quilt-cream);
+      color: var(--ink-navy);
+    }
+
+    .btn-crimson {
+      background-color: var(--crimson-red);
+      color: var(--quilt-cream);
+    }
+
+    .btn-sky {
+      background-color: var(--sky-grid);
+      color: var(--ink-navy);
+    }
+
+    .btn-navy {
+      background-color: var(--ink-navy);
+      color: var(--quilt-cream);
+    }
+
+    @keyframes catBob {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      25% { transform: translateY(-5px) rotate(-6deg) scale(1.06); }
+      75% { transform: translateY(-3px) rotate(6deg) scale(1.06); }
+    }
+
+    .cat-celebrate {
+      animation: catBob 0.65s ease-in-out 2;
+    }
+
+    @keyframes starPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.22) rotate(15deg); }
+    }
+
+    .sparkle-spin {
+      animation: starPulse 2.2s infinite ease-in-out;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ==================== CUSTOM ILLUSTRATED CAT MASCOTS (INSPIRED BY 19535.JPG) ==================== -->
+  <svg width="0" height="0" class="hidden" aria-hidden="true">
+    <defs>
+      <!-- Tile 3: Wide-eyed curious navy cat peeking inside a red-scalloped flower collar -->
+      <g id="cat-flower">
+        <!-- Red scalloped flower petals -->
+        <path d="M24 5 C27.5 5 29.5 8 29.5 11 C32.5 9 36 11.5 34.5 14.8 C38 14.8 40 18.2 37.8 21.2 C41 22.5 41 26.5 37.8 27.8 C40 30.8 38 34.2 34.5 34.2 C36 37.5 32.5 40 29.5 38 C29.5 41 27.5 44 24 44 C20.5 44 18.5 41 18.5 38 C15.5 40 12 37.5 13.5 34.2 C10 34.2 8 30.8 10.2 27.8 C7 26.5 7 22.5 10.2 21.2 C8 18.2 10 14.8 13.5 14.8 C12 11.5 15.5 9 18.5 11 C18.5 8 20.5 5 24 5 Z" fill="#F5EFE2" stroke="#C93B2B" stroke-width="2.2" stroke-linejoin="round" />
+        <!-- Cat ears -->
+        <polygon points="15,21 16.5,12.5 21,18" fill="#143B58" />
+        <polygon points="33,21 31.5,12.5 27,18" fill="#143B58" />
+        <!-- Cat face -->
+        <ellipse cx="24" cy="25" rx="10.2" ry="8.5" fill="#143B58" />
+        <!-- Big round curious eyes 'o.o' -->
+        <circle cx="20" cy="24.8" r="3.1" fill="#F5EFE2" />
+        <circle cx="28" cy="24.8" r="3.1" fill="#F5EFE2" />
+        <circle cx="20.2" cy="24.8" r="1.4" fill="#143B58" />
+        <circle cx="27.8" cy="24.8" r="1.4" fill="#143B58" />
+        <!-- Tiny nose & whiskers -->
+        <ellipse cx="24" cy="27.2" rx="1.1" ry="0.7" fill="#F5EFE2" />
+      </g>
+
+      <!-- Tile 4: Content sleepy cat wearing a crisp cream bow-tie -->
+      <g id="cat-bowtie">
+        <polygon points="12.5,18 14.5,8.5 21,15" fill="#143B58" />
+        <polygon points="35.5,18 33.5,8.5 27,15" fill="#143B58" />
+        <ellipse cx="24" cy="23" rx="13.2" ry="10.5" fill="#143B58" />
+        <!-- Calm closed eyes -->
+        <path d="M17,22.5 Q19.2,24.5 21.5,22.5" stroke="#F5EFE2" stroke-width="1.9" fill="none" stroke-linecap="round" />
+        <path d="M26.5,22.5 Q28.8,24.5 31,22.5" stroke="#F5EFE2" stroke-width="1.9" fill="none" stroke-linecap="round" />
+        <!-- Whiskers -->
+        <line x1="33" y1="24" x2="38" y2="23" stroke="#143B58" stroke-width="1.4" stroke-linecap="round" />
+        <line x1="33" y1="26.5" x2="38" y2="27" stroke="#143B58" stroke-width="1.4" stroke-linecap="round" />
+        <!-- Cream bow-tie -->
+        <polygon points="16.5,34 24,37.2 16.5,40.5" fill="#F5EFE2" stroke="#143B58" stroke-width="1.8" stroke-linejoin="round" />
+        <polygon points="31.5,34 24,37.2 31.5,40.5" fill="#F5EFE2" stroke="#143B58" stroke-width="1.8" stroke-linejoin="round" />
+        <circle cx="24" cy="37.2" r="2.4" fill="#C93B2B" stroke="#143B58" stroke-width="1.2" />
+      </g>
+
+      <!-- Tile 6: Wide-eyed cat nestled in a red & sky-blue striped ruffle -->
+      <g id="cat-ruffle">
+        <polygon points="14,15 16,6.5 21,13" fill="#143B58" />
+        <polygon points="34,15 32,6.5 27,13" fill="#143B58" />
+        <ellipse cx="24" cy="19.5" rx="12.5" ry="9.8" fill="#143B58" />
+        <!-- Big round eyes -->
+        <circle cx="20" cy="19.2" r="3.1" fill="#F5EFE2" />
+        <circle cx="28" cy="19.2" r="3.1" fill="#F5EFE2" />
+        <circle cx="20" cy="19.2" r="1.4" fill="#143B58" />
+        <circle cx="28" cy="19.2" r="1.4" fill="#143B58" />
+        <!-- Pleated red & sky-blue striped ruffle collar -->
+        <path d="M10,26 Q24,31 38,26 L35,40 Q24,44 13,40 Z" fill="#90B8D4" stroke="#143B58" stroke-width="2" stroke-linejoin="round" />
+        <line x1="17.5" y1="28" x2="16.5" y2="41" stroke="#C93B2B" stroke-width="2.4" />
+        <line x1="24" y1="29" x2="24" y2="42" stroke="#F5EFE2" stroke-width="2.4" />
+        <line x1="30.5" y1="28" x2="31.5" y2="41" stroke="#C93B2B" stroke-width="2.4" />
+      </g>
+
+      <!-- Tile 1: Calm profile cat with red-polka-dot sky-blue collar -->
+      <g id="cat-collar">
+        <polygon points="15,15 18,7 22,14" fill="#143B58" />
+        <polygon points="27,14 31,7 33,15" fill="#143B58" />
+        <ellipse cx="24" cy="21" rx="11.5" ry="9.2" fill="#143B58" />
+        <!-- Calm closed eye -->
+        <path d="M17.5,20.5 Q20,22.2 22.5,20.5" stroke="#F5EFE2" stroke-width="1.8" fill="none" stroke-linecap="round" />
+        <!-- Sky-blue scalloped collar with crimson polka dots -->
+        <path d="M12.5,30.5 Q24,38.5 35.5,30.5" stroke="#90B8D4" stroke-width="6" fill="none" stroke-linecap="round" />
+        <path d="M12.5,30.5 Q24,38.5 35.5,30.5" stroke="#143B58" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="2 3" />
+        <circle cx="17" cy="33" r="1.8" fill="#C93B2B" />
+        <circle cx="24" cy="35" r="1.8" fill="#C93B2B" />
+        <circle cx="31" cy="33" r="1.8" fill="#C93B2B" />
+      </g>
+
+      <!-- Tile 2: Upside-down curious cat peeking from top -->
+      <g id="cat-upside">
+        <path d="M11,6 L37,6 L35,23 Q24,30 13,23 Z" fill="#143B58" />
+        <polygon points="15,22 18,31 22,24" fill="#143B58" />
+        <polygon points="33,22 30,31 26,24" fill="#143B58" />
+        <circle cx="20" cy="16" r="3" fill="#F5EFE2" />
+        <circle cx="28" cy="16" r="3" fill="#F5EFE2" />
+        <circle cx="20" cy="16" r="1.3" fill="#143B58" />
+        <circle cx="28" cy="16" r="1.3" fill="#143B58" />
+        <ellipse cx="24" cy="20" rx="1.2" ry="0.8" fill="#F5EFE2" />
+      </g>
+    </defs>
+  </svg>
+
+  <div class="app-shell">
+    <!-- ==================== STICKY TOP HEADER WITH EN / VI TOGGLE & CAT STREAK ==================== -->
+    <header class="sticky top-0 z-30 bg-[#184A6E]/95 backdrop-blur-md border-b-2 border-[#90B8D4]/35 px-3.5 pt-3 pb-3">
+      <div class="flex items-center justify-between gap-2">
+        <!-- Left: Flower Cat Quilt Patch + Title -->
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-11 h-11 rounded-2xl bg-[#F5EFE2] border-2 border-[#143B58] shadow-[2px_2px_0px_#0D293E] flex items-center justify-center shrink-0">
+            <svg viewBox="0 0 48 48" class="w-9 h-9">
+              <use href="#cat-flower"></use>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="font-geo text-[10px] font-black uppercase tracking-[0.12em] text-[#90B8D4] truncate">PILATES STREAK</span>
+              <span id="sim-day-badge" class="hidden text-[9px] font-extrabold text-[#F5EFE2] bg-[#C93B2B] px-1.5 py-0.5 rounded border border-[#F5EFE2]/40">+<span id="sim-offset-num">0</span>d</span>
+            </div>
+            <h1 class="font-geo text-sm sm:text-base font-black tracking-tight text-[#F5EFE2] leading-tight truncate">1m59 • 56 → 46kg</h1>
+          </div>
+        </div>
+
+        <!-- Right: EN/VI Language Toggle + Ruffle Cat Streak Badge -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <!-- Language Toggle Pill (EN default / VI toggle) -->
+          <div class="flex items-center bg-[#133E5D] p-0.5 rounded-xl border-2 border-[#90B8D4]/50" role="group" aria-label="Language toggle">
+            <button type="button" id="lang-btn-en" onclick="setLanguage('en')" class="px-2 py-1 rounded-lg font-geo text-[10px] font-black transition bg-[#F5EFE2] text-[#143B58] shadow-[1px_1px_0px_#0D293E]">
+              EN
+            </button>
+            <button type="button" id="lang-btn-vi" onclick="setLanguage('vi')" class="px-2 py-1 rounded-lg font-geo text-[10px] font-extrabold transition text-[#90B8D4]">
+              VI
+            </button>
+          </div>
+
+          <!-- Streak Counter Pill with Striped Ruffle Cat -->
+          <div id="streak-pill" class="flex items-center gap-1.5 px-2.5 py-1 rounded-2xl bg-[#F5EFE2] border-2 border-[#143B58] shadow-[2px_2px_0px_#0D293E]">
+            <div id="mascot-cat" class="w-7 h-7 shrink-0 flex items-center justify-center">
+              <svg viewBox="0 0 48 48" class="w-7 h-7">
+                <use href="#cat-ruffle"></use>
+              </svg>
+            </div>
+            <div class="leading-none pr-0.5">
+              <div class="font-geo text-xs sm:text-sm font-black text-[#143B58] flex items-center gap-0.5">
+                <span id="header-star" class="text-[#C93B2B]">✦</span>
+                <span><span id="streak-count">0</span> <span data-i18n="daysUnit">days</span></span>
+              </div>
+              <div class="text-[9px] font-bold text-[#143B58]/70 mt-0.5"><span data-i18n="bestLabel">Best</span>: <span id="best-streak">0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-Day Weekly Streak Strip (Mon -> Sun) -->
+      <div class="mt-2.5 bg-[#133E5D] rounded-2xl p-1.5 border border-[#90B8D4]/35">
+        <div class="grid grid-cols-7 gap-1 text-center" id="week-streak-bar">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== MAIN 4-TAB VIEWPORT ==================== -->
+    <main class="px-4 pt-4 space-y-4">
+
+      <!-- ==================== TAB 1: TODAY ==================== -->
+      <section id="tab-today" class="tab-content space-y-4">
+        <!-- Day Selector Strip -->
+        <div class="quilt-patch p-2 flex items-center justify-between gap-1">
+          <span class="font-geo text-[10px] font-black uppercase tracking-wider text-[#143B58] pl-2.5 shrink-0" data-i18n="dayLabel">Day:</span>
+          <div class="flex gap-1 overflow-x-auto no-scrollbar" id="day-selector-pills">
+            <!-- Rendered Mon..Sun -->
+          </div>
+        </div>
+
+        <!-- 7 Daily Streak Goals Quilt Card (with 4 crimson corner dots inspired by tile 5 in 19535.jpg) -->
+        <div class="quilt-patch p-4">
+          <span class="w-2 h-2 rounded-full bg-[#C93B2B] absolute top-2.5 left-2.5"></span>
+          <span class="w-2 h-2 rounded-full bg-[#C93B2B] absolute top-2.5 right-2.5"></span>
+          <span class="w-2 h-2 rounded-full bg-[#C93B2B] absolute bottom-2.5 left-2.5"></span>
+          <span class="w-2 h-2 rounded-full bg-[#C93B2B] absolute bottom-2.5 right-2.5"></span>
+
+          <div class="flex items-start justify-between gap-2 mb-2.5 pt-1">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#143B58] text-[#F5EFE2] font-geo text-[10px] font-extrabold uppercase tracking-wider">
+                <span class="text-[#90B8D4]">✦</span>
+                <span id="today-day-label">Monday</span>
+              </div>
+              <h2 class="font-geo text-base font-black uppercase tracking-wide text-[#143B58] mt-1.5" data-i18n="sevenGoalsHeading">7 Daily Streak Goals</h2>
+            </div>
+            <span id="daily-progress-text" class="font-geo text-xs font-black bg-[#C93B2B] text-[#F5EFE2] px-2.5 py-1 rounded-xl border-2 border-[#143B58]">0/7 done</span>
+          </div>
+
+          <!-- Bow-Tie Cat Mascot Encouragement Banner -->
+          <div class="bg-[#EDE4D0] border-2 border-[#143B58] rounded-2xl p-2.5 mb-3 flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-[#F5EFE2] border-2 border-[#143B58] flex items-center justify-center shrink-0">
+              <svg viewBox="0 0 48 48" class="w-8 h-8">
+                <use href="#cat-bowtie"></use>
+              </svg>
+            </div>
+            <p id="cat-encouragement-text" class="text-xs font-bold text-[#143B58] leading-snug">
+              Meow! Check off all 7 goals today to light up your quilt streak star!
+            </p>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full h-4 bg-[#EDE4D0] rounded-full overflow-hidden border-2 border-[#143B58] mb-3 p-0.5">
+            <div id="daily-progress-bar" class="h-full bg-[#C93B2B] rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <!-- 7 Daily Streak Goals Checklist -->
+          <div id="streak-goals-container" class="space-y-2 mb-3.5">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- Complete Today's Streak CTA Button -->
+          <button id="complete-streak-btn" onclick="claimDailyStreak()" class="quilt-btn btn-crimson w-full py-3.5 px-4 rounded-2xl font-geo font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+            <span>✦</span>
+            <span id="complete-streak-btn-text">Complete Today's Streak</span>
+          </button>
+
+          <!-- Test Next Day Streak Simulator -->
+          <div class="mt-3 pt-2.5 border-t-2 border-dashed border-[#79A3C1] flex items-center justify-between text-[11px]">
+            <span class="font-bold text-[#143B58]/75" data-i18n="testStreakLabel">Test streak continuity:</span>
+            <div class="flex items-center gap-2">
+              <button onclick="simulateNextDay()" class="font-geo font-extrabold text-[#143B58] bg-[#EDE4D0] hover:bg-[#90B8D4]/35 px-2.5 py-1 rounded-lg border border-[#143B58] transition" data-i18n="nextDayBtn">
+                ⏭️ Next Day
+              </button>
+              <button onclick="resetSimulation()" id="reset-sim-btn" class="hidden font-extrabold text-[#C93B2B] underline" data-i18n="resetTodayBtn">
+                Today
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== BLOGILATES MORNING & EVENING WORKOUTS ==================== -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between px-1">
+            <h3 class="font-geo text-xs font-black uppercase tracking-[0.1em] text-[#F5EFE2] flex items-center gap-1.5">
+              <span class="text-[#C93B2B]">✦</span> <span data-i18n="todayWorkoutsHeading">Today's Blogilates Plan</span>
+            </h3>
+            <span class="text-[11px] font-extrabold text-[#143B58] bg-[#F5EFE2] px-2.5 py-0.5 rounded-full border border-[#143B58]" data-i18n="bodyTypeBadge">Inverted Triangle</span>
+          </div>
+
+          <!-- Morning Workout Card (Sky-Blue Plaid Patch) -->
+          <div class="quilt-plaid p-4 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-geo text-[10px] font-black uppercase tracking-wider bg-[#143B58] text-[#F5EFE2] px-2.5 py-1 rounded-lg" data-i18n="morningBadge">
+                ☀️ Morning (07:10–07:30) • Activate
+              </span>
+              <span id="morning-workout-duration" class="font-geo text-xs font-black bg-[#F5EFE2] text-[#C93B2B] px-2.5 py-0.5 rounded-xl border-2 border-[#143B58]">20m</span>
+            </div>
+            <div class="bg-[#F5EFE2]/95 rounded-2xl p-3 border-2 border-[#143B58]">
+              <h4 id="morning-workout-title" class="font-geo text-sm font-black text-[#143B58] leading-snug"></h4>
+              <p id="morning-workout-focus" class="text-xs font-semibold text-[#143B58]/75 mt-1"></p>
+            </div>
+            <div id="morning-workout-actions" class="grid grid-cols-2 gap-2.5 pt-0.5">
+              <!-- YouTube & Countdown Timer buttons -->
+            </div>
+          </div>
+
+          <!-- Evening Workout Card -->
+          <div class="quilt-patch p-4 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-geo text-[10px] font-black uppercase tracking-wider bg-[#C93B2B] text-[#F5EFE2] px-2.5 py-1 rounded-lg" data-i18n="eveningBadge">
+                🌙 Evening (20:30–20:55) • Sculpt &amp; Unwind
+              </span>
+              <span id="evening-workout-duration" class="font-geo text-xs font-black bg-[#EDE4D0] text-[#143B58] px-2.5 py-0.5 rounded-xl border-2 border-[#143B58]">15m</span>
+            </div>
+            <div>
+              <h4 id="evening-workout-title" class="font-geo text-sm font-black text-[#143B58] leading-snug"></h4>
+              <p id="evening-workout-focus" class="text-xs font-semibold text-[#143B58]/75 mt-1"></p>
+            </div>
+            <div id="evening-workout-actions" class="grid grid-cols-2 gap-2.5 pt-0.5">
+              <!-- YouTube & Countdown Timer buttons -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== WATER TRACKER & LUNCH / DINNER QUICK NOTES ==================== -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between px-1">
+            <h3 class="font-geo text-xs font-black uppercase tracking-[0.1em] text-[#F5EFE2] flex items-center gap-1.5">
+              <span class="text-[#90B8D4]">✦</span> <span data-i18n="notesSectionHeading">Hydration &amp; Meal Notes</span>
+            </h3>
+            <span class="text-[11px] font-bold text-[#90B8D4]" data-i18n="flexibleSubtitle">Flexible, no strict clock</span>
+          </div>
+
+          <!-- 8-Cup Hydration Counter -->
+          <div class="quilt-plaid p-4">
+            <div class="bg-[#F5EFE2]/95 rounded-2xl p-3 border-2 border-[#143B58]">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-geo text-xs font-black uppercase tracking-wider text-[#143B58]" data-i18n="hydrationTitle">💧 Daily Water (8 cups ~ 2L)</span>
+                <span class="font-geo text-xs font-black bg-[#143B58] text-[#F5EFE2] px-2.5 py-0.5 rounded-lg">
+                  <span id="water-count-text">0</span>/8 <span data-i18n="cupsUnit">cups</span>
+                </span>
+              </div>
+              <p class="text-[11px] font-semibold text-[#143B58]/75 mb-2.5" data-i18n="warmWaterReminder">Start your morning with 1 cup of warm water!</p>
+
+              <div id="water-glasses-grid" class="grid grid-cols-8 gap-1.5 mb-3">
+                <!-- 8 cups rendered via JS -->
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="changeWaterCount(-1)" class="quilt-btn btn-cream px-3 py-1.5 rounded-xl font-geo text-xs font-black" data-i18n="minusCupBtn">- 1 cup</button>
+                <button onclick="changeWaterCount(1)" class="quilt-btn btn-navy flex-1 py-1.5 rounded-xl font-geo text-xs font-black uppercase tracking-wider" data-i18n="plusCupBtn">+ Add 1 cup</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lunch Quick Note -->
+          <div class="quilt-patch p-4">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-geo text-xs font-black uppercase tracking-wider text-[#C93B2B]" data-i18n="lunchNoteTitle">🥩 Lunch Note (High Protein)</span>
+              <button onclick="toggleGoalFromNote('lunch_protein')" id="note-lunch-badge" class="font-geo text-[10px] font-black px-2.5 py-0.5 rounded-lg border-2 border-[#143B58] bg-[#EDE4D0] text-[#143B58]">
+                Mark Done
+              </button>
+            </div>
+            <p class="text-xs font-semibold text-[#143B58]/80 leading-relaxed" data-i18n="lunchNoteDesc">
+              Focus on <strong>lean beef, fish, chicken breast, eggs</strong> + mild greens (spinach, bok choy, lettuce, cucumber). Minimize carbs &amp; sugar.
+            </p>
+            <input id="lunch-memo-input" type="text" placeholder="Quick lunch log (e.g., Pan-seared beef + bok choy)..." oninput="saveMealMemo('lunch', this.value)" class="mt-2.5 w-full px-3 py-2 rounded-xl bg-[#EDE4D0] border-2 border-[#143B58] text-xs font-bold text-[#143B58] placeholder-[#143B58]/45 focus:outline-none focus:bg-[#FFFDF9]" />
+          </div>
+
+          <!-- Dinner Quick Note -->
+          <div class="quilt-patch p-4">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-geo text-xs font-black uppercase tracking-wider text-[#143B58]" data-i18n="dinnerNoteTitle">🥗 Early Dinner Note (18:00–18:30)</span>
+              <button onclick="toggleGoalFromNote('dinner_healthy')" id="note-dinner-badge" class="font-geo text-[10px] font-black px-2.5 py-0.5 rounded-lg border-2 border-[#143B58] bg-[#EDE4D0] text-[#143B58]">
+                Mark Done
+              </button>
+            </div>
+            <p class="text-xs font-semibold text-[#143B58]/80 leading-relaxed" data-i18n="dinnerNoteDesc">
+              Light &amp; easy to digest; <strong>avoid milk, cheese, beans, potatoes</strong> &amp; pungent veggies (fish mint, dill, bell peppers).
+            </p>
+            <input id="dinner-memo-input" type="text" placeholder="Quick dinner log (e.g., Steamed fish + zucchini)..." oninput="saveMealMemo('dinner', this.value)" class="mt-2.5 w-full px-3 py-2 rounded-xl bg-[#EDE4D0] border-2 border-[#143B58] text-xs font-bold text-[#143B58] placeholder-[#143B58]/45 focus:outline-none focus:bg-[#FFFDF9]" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: WEEKLY SCHEDULE ==================== -->
+      <section id="tab-weekly" class="tab-content hidden space-y-4">
+        <div class="quilt-plaid p-4">
+          <div class="bg-[#F5EFE2]/95 rounded-2xl p-3.5 border-2 border-[#143B58]">
+            <div class="flex items-center gap-2.5 mb-2">
+              <svg viewBox="0 0 48 48" class="w-9 h-9 shrink-0">
+                <use href="#cat-collar"></use>
+              </svg>
+              <h2 class="font-geo text-sm font-black uppercase tracking-wide text-[#143B58]" data-i18n="invertedTriangleTitle">Inverted Triangle Form Tips</h2>
+            </div>
+            <ul class="space-y-1.5 text-xs font-semibold text-[#143B58] leading-relaxed" id="form-tips-list">
+              <!-- Populated by language -->
+            </ul>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="font-geo text-xs font-black uppercase tracking-[0.1em] text-[#F5EFE2] px-1" data-i18n="fullWeeklyHeading">📅 Full Blogilates Schedule (Mon – Sun)</h3>
+          <div id="weekly-schedule-list" class="space-y-3">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: NUTRITION ==================== -->
+      <section id="tab-nutrition" class="tab-content hidden space-y-4">
+        <div class="quilt-plaid p-4">
+          <div class="bg-[#F5EFE2]/95 rounded-2xl p-3.5 border-2 border-[#143B58] flex items-start justify-between gap-2">
+            <div>
+              <span class="font-geo text-[10px] font-black uppercase tracking-widest bg-[#C93B2B] text-[#F5EFE2] px-2 py-0.5 rounded" data-i18n="bloodTypeTag">Blood Type B • ~1,350 kcal/day</span>
+              <h2 class="font-geo text-base font-black text-[#143B58] mt-1.5" data-i18n="nutritionHeroTitle">Clean &amp; Tummy-Friendly Eating</h2>
+              <p class="text-xs font-semibold text-[#143B58]/80 mt-1 leading-relaxed" data-i18n="nutritionHeroDesc">
+                Skip breakfast if preferred. Keep a high-protein lunch &amp; light early dinner (18:00–18:30), paired with warm water &amp; 2L+ hydration.
+              </p>
+            </div>
+            <svg viewBox="0 0 48 48" class="w-11 h-11 shrink-0">
+              <use href="#cat-upside"></use>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Food Filter Buttons -->
+        <div class="grid grid-cols-3 gap-2">
+          <button onclick="filterFood('all')" id="food-filter-all" class="quilt-btn btn-crimson py-2 rounded-xl font-geo text-[11px] font-black uppercase" data-i18n="filterAll">All</button>
+          <button onclick="filterFood('good')" id="food-filter-good" class="quilt-btn btn-cream py-2 rounded-xl font-geo text-[11px] font-black uppercase" data-i18n="filterGood">✅ Prioritize</button>
+          <button onclick="filterFood('avoid')" id="food-filter-avoid" class="quilt-btn btn-cream py-2 rounded-xl font-geo text-[11px] font-black uppercase" data-i18n="filterAvoid">🚫 Avoid</button>
+        </div>
+
+        <!-- Prioritize Foods Card -->
+        <div id="food-card-good" class="quilt-patch p-4 space-y-2.5">
+          <div class="flex items-center justify-between border-b-2 border-dashed border-[#79A3C1] pb-2">
+            <h3 class="font-geo text-xs font-black uppercase tracking-wider text-[#143B58]" data-i18n="goodFoodsHeading">✅ Foods to Prioritize</h3>
+            <span class="text-[#C93B2B] font-black">✦</span>
+          </div>
+          <div class="space-y-2 text-xs font-semibold text-[#143B58]" id="good-foods-body">
+            <!-- Rendered by language -->
+          </div>
+        </div>
+
+        <!-- Avoid Foods Card -->
+        <div id="food-card-avoid" class="quilt-patch p-4 space-y-2.5">
+          <div class="flex items-center justify-between border-b-2 border-dashed border-[#79A3C1] pb-2">
+            <h3 class="font-geo text-xs font-black uppercase tracking-wider text-[#C93B2B]" data-i18n="avoidFoodsHeading">🚫 Strictly Avoid</h3>
+            <span class="text-[#C93B2B] font-black">✕</span>
+          </div>
+          <div class="space-y-2 text-xs font-semibold text-[#143B58]" id="avoid-foods-body">
+            <!-- Rendered by language -->
+          </div>
+        </div>
+
+        <!-- Quick Takeout Tips -->
+        <div class="quilt-patch p-4 space-y-2.5">
+          <h3 class="font-geo text-xs font-black uppercase tracking-wider text-[#143B58]" data-i18n="takeoutHeading">🛵 Quick Ordering Guide (No Cooking Needed)</h3>
+          <div class="space-y-2 text-xs font-semibold text-[#143B58]" id="takeout-body">
+            <!-- Rendered by language -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 4: PROGRESS & BACKUP ==================== -->
+      <section id="tab-progress" class="tab-content hidden space-y-4">
+        <!-- Streak Summary Patch -->
+        <div class="quilt-plaid p-4">
+          <div class="bg-[#F5EFE2]/95 rounded-2xl p-4 border-2 border-[#143B58] flex items-center justify-between gap-3">
+            <div>
+              <span class="font-geo text-[10px] font-black uppercase tracking-widest bg-[#143B58] text-[#F5EFE2] px-2 py-0.5 rounded" data-i18n="streakStatsBadge">Discipline Streak</span>
+              <div class="font-geo text-3xl font-black text-[#143B58] mt-1 flex items-center gap-1.5">
+                <span class="text-[#C93B2B]">✦</span>
+                <span><span id="progress-streak-num">0</span> <span data-i18n="daysCap">Days</span></span>
+              </div>
+              <div class="text-xs font-bold text-[#143B58]/80 mt-1">
+                <span data-i18n="bestLabel">Best</span>: <strong><span id="progress-best-streak">0</span> <span data-i18n="daysUnit">days</span></strong> • <span data-i18n="totalDaysLabel">Total</span>: <strong><span id="progress-total-days">0</span></strong>
+              </div>
+            </div>
+            <div class="w-16 h-16 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58] flex flex-col items-center justify-center shrink-0">
+              <svg viewBox="0 0 48 48" class="w-12 h-12">
+                <use href="#cat-flower"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weight Roadmap Tracker 56.0 -> 48.0 -> 46.0kg -->
+        <div class="quilt-patch p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="font-geo text-[10px] font-black uppercase tracking-wider text-[#79A3C1]" data-i18n="profileTag">Female • 1m59</span>
+              <h2 class="font-geo text-base font-black text-[#143B58]" data-i18n="weightTrackerTitle">Weight Roadmap</h2>
+            </div>
+            <div class="text-right bg-[#EDE4D0] px-3 py-1 rounded-xl border-2 border-[#143B58]">
+              <div class="font-geo text-lg font-black text-[#C93B2B]"><span id="current-weight-display">56.0</span> kg</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between font-geo text-[10px] font-extrabold text-[#143B58] mb-1.5">
+              <span>56.0kg</span>
+              <span class="text-[#C93B2B]" data-i18n="milestone1Label">Stage 1: 48.0kg</span>
+              <span class="text-[#143B58]" data-i18n="finalGoalLabel">Goal: 46.0kg</span>
+            </div>
+            <div class="relative w-full h-5 bg-[#EDE4D0] rounded-full overflow-hidden border-2 border-[#143B58] p-0.5">
+              <div id="weight-progress-bar" class="h-full bg-gradient-to-r from-[#90B8D4] to-[#C93B2B] rounded-full transition-all duration-500" style="width: 0%"></div>
+              <div class="absolute top-0 bottom-0 left-[80%] w-0.5 bg-[#143B58]" title="Stage 1: 48.0kg"></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div class="bg-[#EDE4D0] p-2.5 rounded-2xl border-2 border-[#143B58] text-center">
+              <div class="font-geo text-[9px] font-extrabold text-[#143B58]/70 uppercase" data-i18n="lostLabel">Lost</div>
+              <div class="font-geo text-sm font-black text-[#143B58] mt-0.5"><span id="weight-lost">0.0</span> kg</div>
+            </div>
+            <div class="bg-[#EDE4D0] p-2.5 rounded-2xl border-2 border-[#143B58] text-center">
+              <div class="font-geo text-[9px] font-extrabold text-[#143B58]/70 uppercase" data-i18n="to48Label">To 48kg</div>
+              <div class="font-geo text-sm font-black text-[#C93B2B] mt-0.5"><span id="weight-to-m1">8.0</span> kg</div>
+            </div>
+            <div class="bg-[#EDE4D0] p-2.5 rounded-2xl border-2 border-[#143B58] text-center">
+              <div class="font-geo text-[9px] font-extrabold text-[#143B58]/70 uppercase" data-i18n="to46Label">To 46kg</div>
+              <div class="font-geo text-sm font-black text-[#143B58] mt-0.5"><span id="weight-to-goal">10.0</span> kg</div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t-2 border-dashed border-[#79A3C1]">
+            <label for="weight-input" class="block text-xs font-extrabold text-[#143B58] mb-1.5" data-i18n="updateWeightLabel">Log current weight (kg):</label>
+            <div class="flex gap-2">
+              <input id="weight-input" type="number" step="0.1" min="35" max="100" value="56.0" class="w-full px-3.5 py-2.5 rounded-2xl border-2 border-[#143B58] bg-[#EDE4D0] font-geo font-black text-[#143B58] focus:outline-none focus:bg-[#FFFDF9] text-sm" />
+              <button onclick="updateWeight()" class="quilt-btn btn-crimson px-5 py-2.5 rounded-2xl font-geo font-black text-xs uppercase tracking-wider shrink-0" data-i18n="saveBtn">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== BACKUP & RESTORE DATA ==================== -->
+        <div class="quilt-patch p-4 space-y-3">
+          <div class="flex items-center justify-between border-b-2 border-dashed border-[#79A3C1] pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">💾</span>
+              <h3 class="font-geo text-xs font-black uppercase tracking-wider text-[#143B58]" data-i18n="backupHeading">Backup &amp; Restore Streak</h3>
+            </div>
+            <span class="font-geo text-[10px] font-black bg-[#143B58] text-[#F5EFE2] px-2 py-0.5 rounded">JSON / Notes</span>
+          </div>
+
+          <p class="text-xs font-semibold text-[#143B58]/80 leading-relaxed" data-i18n="backupDesc">
+            Save your streak, daily checkmarks, and weight logs so you never lose progress when switching browsers or clearing cache:
+          </p>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <button onclick="exportBackupFile()" class="quilt-btn btn-navy py-3 px-3 rounded-2xl font-geo text-xs font-black flex items-center justify-center gap-1.5">
+              <span>⬇️</span> <span data-i18n="downloadJsonBtn">Download .JSON</span>
+            </button>
+            <label class="quilt-btn btn-cream py-3 px-3 rounded-2xl font-geo text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer text-center">
+              <span>⬆️</span> <span data-i18n="importJsonBtn">Import .JSON</span>
+              <input type="file" accept=".json,application/json" onchange="importBackupFile(event)" class="hidden" />
+            </label>
+          </div>
+
+          <div class="pt-2 border-t-2 border-dashed border-[#79A3C1] space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-geo text-[11px] font-extrabold uppercase text-[#143B58]" data-i18n="quickCodeLabel">Quick Backup Code (Samsung Notes):</span>
+              <button onclick="copyBackupCode()" class="quilt-btn btn-sky px-3 py-1 rounded-xl font-geo text-[11px] font-black shrink-0" data-i18n="copyCodeBtn">
+                📋 Copy Code
+              </button>
+            </div>
+            <textarea id="backup-code-box" rows="2" placeholder="Tap 'Copy Code' to save in Samsung Notes, or paste your saved backup code here to restore..." class="w-full p-2.5 rounded-xl bg-[#EDE4D0] border-2 border-[#143B58] text-[11px] font-mono text-[#143B58] focus:outline-none focus:bg-[#FFFDF9]"></textarea>
+            <button onclick="restoreFromBackupCode()" class="quilt-btn btn-crimson w-full py-2.5 rounded-xl font-geo text-xs font-black uppercase tracking-wider" data-i18n="restoreCodeBtn">
+              🔄 Restore From Pasted Code
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== STICKY BOTTOM NAVIGATION BAR ==================== -->
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-[#133E5D]/95 backdrop-blur-md border-t-2 border-[#90B8D4]/40 px-2.5 py-2 z-40">
+      <div class="grid grid-cols-4 gap-1.5">
+        <button onclick="switchTab('today')" id="nav-today" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-2xl bg-[#F5EFE2] text-[#143B58] border-2 border-[#143B58] shadow-[2px_2px_0px_#0D293E] transition">
+          <span class="text-base leading-none text-[#C93B2B]">✦</span>
+          <span class="font-geo text-[10px] font-black uppercase mt-1" data-i18n="navToday">Today</span>
+        </button>
+        <button onclick="switchTab('weekly')" id="nav-weekly" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-2xl text-[#F5EFE2]/75 hover:bg-[#184A6E] transition">
+          <span class="text-base leading-none">📅</span>
+          <span class="font-geo text-[10px] font-extrabold uppercase mt-1" data-i18n="navWeekly">Weekly</span>
+        </button>
+        <button onclick="switchTab('nutrition')" id="nav-nutrition" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-2xl text-[#F5EFE2]/75 hover:bg-[#184A6E] transition">
+          <span class="text-base leading-none">🥗</span>
+          <span class="font-geo text-[10px] font-extrabold uppercase mt-1" data-i18n="navNutrition">Nutrition</span>
+        </button>
+        <button onclick="switchTab('progress')" id="nav-progress" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-2xl text-[#F5EFE2]/75 hover:bg-[#184A6E] transition">
+          <span class="text-base leading-none">📈</span>
+          <span class="font-geo text-[10px] font-extrabold uppercase mt-1" data-i18n="navProgress">Progress</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ==================== COUNTDOWN WORKOUT TIMER MODAL ==================== -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-[#0D293E]/75 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-4">
+    <div class="quilt-patch w-full max-w-[420px] p-5 space-y-4">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <span class="font-geo text-[10px] font-black uppercase tracking-widest bg-[#143B58] text-[#F5EFE2] px-2.5 py-0.5 rounded" data-i18n="timerBadge">Pilates Timer</span>
+          <h3 id="timer-workout-name" class="font-geo text-sm font-black text-[#143B58] mt-1.5">15 Min Booty Sculpting</h3>
+        </div>
+        <button onclick="closeTimerModal()" class="quilt-btn btn-cream w-8 h-8 rounded-xl font-black flex items-center justify-center">✕</button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2">
+        <button onclick="setTimerMinutes(10)" id="preset-10" class="quilt-btn btn-cream py-2 rounded-xl font-geo text-xs font-black"><span data-i18n="min10">10 min</span></button>
+        <button onclick="setTimerMinutes(15)" id="preset-15" class="quilt-btn btn-crimson py-2 rounded-xl font-geo text-xs font-black"><span data-i18n="min15">15 min</span></button>
+        <button onclick="setTimerMinutes(20)" id="preset-20" class="quilt-btn btn-cream py-2 rounded-xl font-geo text-xs font-black"><span data-i18n="min20">20 min</span></button>
+      </div>
+
+      <div class="bg-[#184A6E] rounded-3xl py-7 text-center border-2 border-[#143B58]">
+        <div id="timer-display" class="font-geo text-5xl font-black text-[#F5EFE2] tracking-wider">15:00</div>
+        <div id="timer-status-text" class="text-xs font-bold text-[#90B8D4] mt-2 px-3">Turn on your TV and step onto the mat!</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2.5">
+        <button id="timer-toggle-btn" onclick="toggleTimer()" class="quilt-btn btn-crimson py-3 rounded-2xl font-geo font-black text-xs uppercase tracking-wider">
+          ▶ Start
+        </button>
+        <button onclick="resetTimer()" class="quilt-btn btn-cream py-3 rounded-2xl font-geo font-black text-xs uppercase tracking-wider" data-i18n="resetTimerBtn">
+          ↺ Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-box" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300">
+    <div id="toast-message" class="bg-[#F5EFE2] text-[#143B58] font-geo text-xs font-black px-4 py-2.5 rounded-2xl border-2 border-[#143B58] shadow-[3px_3px_0px_#0D293E] text-center max-w-[340px]"></div>
+  </div>
+
+  <script>
+    // ==================== BILINGUAL DICTIONARY (ENGLISH DEFAULT + VIETNAMESE TOGGLE) ====================
+    const I18N = {
+      en: {
+        daysUnit: 'days',
+        daysCap: 'Days',
+        bestLabel: 'Best',
+        totalDaysLabel: 'Total',
+        dayLabel: 'Day:',
+        sevenGoalsHeading: '7 Daily Streak Goals',
+        doneSuffix: 'done',
+        catMsgEmpty: 'Meow! Check off all 7 goals today to light up your quilt streak star!',
+        catMsgStart: 'Great start ({count}/7)! Keep the cozy momentum going!',
+        catMsgAlmost: 'Almost there! Just {left} more goal(s) to seal today’s streak!',
+        catMsgDone: 'Purr-fect! You completed all 7/7 streak goals today!',
+        completeBtnDefault: "Complete Today's Streak",
+        completeBtnDone: 'Streak Secured for Today!',
+        testStreakLabel: 'Test streak continuity:',
+        nextDayBtn: '⏭️ Next Day',
+        resetTodayBtn: 'Today',
+        todayWorkoutsHeading: "Today's Blogilates Plan",
+        bodyTypeBadge: 'Inverted Triangle',
+        morningBadge: '☀️ Morning (07:10–07:30) • Activate',
+        eveningBadge: '🌙 Evening (20:30–20:55) • Sculpt & Unwind',
+        minSuffix: 'min',
+        restLabel: 'Rest',
+        openYoutubeBtn: 'Open YouTube',
+        timerBtn: 'Timer',
+        sundayMorningRestNote: '🌿 Sunday morning full recovery rest for muscle repair',
+        notesSectionHeading: 'Hydration & Meal Notes',
+        flexibleSubtitle: 'Flexible, no strict clock',
+        hydrationTitle: '💧 Daily Water (8 cups ~ 2L)',
+        cupsUnit: 'cups',
+        warmWaterReminder: 'Start your morning with 1 cup of warm water!',
+        minusCupBtn: '- 1 cup',
+        plusCupBtn: '+ Add 1 cup',
+        lunchNoteTitle: '🥩 Lunch Note (High Protein)',
+        lunchMarkTodo: 'Mark Done',
+        lunchMarkDone: '✦ Protein Done',
+        lunchNoteDesc: 'Focus on <strong>lean beef, fish, chicken breast, eggs</strong> + mild greens (spinach, bok choy, lettuce, cucumber). Minimize carbs & sugar.',
+        lunchPlaceholder: 'Quick lunch log (e.g., Pan-seared beef + bok choy)...',
+        dinnerNoteTitle: '🥗 Early Dinner Note (18:00–18:30)',
+        dinnerMarkTodo: 'Mark Done',
+        dinnerMarkDone: '✦ Dinner Done',
+        dinnerNoteDesc: 'Light & easy to digest; <strong>avoid milk, cheese, beans, potatoes</strong> & pungent veggies (fish mint, dill, bell peppers).',
+        dinnerPlaceholder: 'Quick dinner log (e.g., Steamed fish + zucchini)...',
+        invertedTriangleTitle: 'Inverted Triangle Form Tips',
+        formTips: [
+          '• <strong>Keep shoulders down & neck long:</strong> Avoid shrugging upper traps during arm/back videos (especially Tuesday).',
+          '• <strong>Plank & push-up modifications:</strong> Drop to knees or forearms if neck/shoulders feel tense so core stays engaged.',
+          '• <strong>Lower-body resistance:</strong> Add a resistance band above knees on glute & thigh days (Mon, Thu, Sat).'
+        ],
+        fullWeeklyHeading: '📅 Full Blogilates Schedule (Mon – Sun)',
+        openDayBtn: 'Open Day →',
+        morningShort: '☀️ Morning (07:10–07:30)',
+        eveningShort: '🌙 Evening (20:30–20:55)',
+        bloodTypeTag: 'Blood Type B • ~1,350 kcal/day',
+        nutritionHeroTitle: 'Clean & Tummy-Friendly Eating',
+        nutritionHeroDesc: 'Skip breakfast if preferred. Keep a high-protein lunch & light early dinner (18:00–18:30), paired with warm water & 2L+ hydration.',
+        filterAll: 'All',
+        filterGood: '✅ Prioritize',
+        filterAvoid: '🚫 Avoid',
+        goodFoodsHeading: '✅ Foods to Prioritize',
+        goodFoodsHtml: `
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#143B58] mb-0.5">🥩 High-Absorption Lean Proteins (Type B)</div>
+            <p>Lean beef, salmon, mackerel, snakehead/basa fish, chicken breast, eggs, seafood.</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#143B58] mb-0.5">🥬 Mild, Easy-to-Digest Greens</div>
+            <p>Spinach, bok choy, choy sum, lettuce, zucchini, asparagus, cucumber.</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#143B58] mb-0.5">🫒 Healthy Fats in Moderation</div>
+            <p>Extra-virgin olive oil or avocado oil for light pan-searing and dressings.</p>
+          </div>
+        `,
+        avoidFoodsHeading: '🚫 Strictly Avoid',
+        avoidFoodsHtml: `
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#C93B2B] mb-0.5">🥛 Dairy &amp; Cheese</div>
+            <p>Cow's milk, condensed milk, cheese (prevents lactose discomfort &amp; bloating).</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#C93B2B] mb-0.5">🍚 Refined Carbs &amp; Added Sugar</div>
+            <p>White rice, noodles, pho, bread, milk tea, soda, pastries.</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#C93B2B] mb-0.5">🫘 Beans, Potatoes &amp; Pungent Veggies</div>
+            <p>All beans/legumes, potatoes/sweet potatoes, <strong>fish mint (diếp cá), dill (thìa là), bell peppers</strong>.</p>
+          </div>
+        `,
+        takeoutHeading: '🛵 Quick Ordering Guide (No Cooking Needed)',
+        takeoutHtml: `
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border border-[#143B58]">
+            <strong class="font-geo text-[#C93B2B]">1. Pan-Seared Steak / Bò Né:</strong> Skip bread, fries &amp; cheese; keep beef, fried egg &amp; fresh greens.
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border border-[#143B58]">
+            <strong class="font-geo text-[#143B58]">2. Steamed Fish / Grilled Chicken + Boiled Greens:</strong> Pair lean protein with bok choy, choy sum, or zucchini.
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border border-[#143B58]">
+            <strong class="font-geo text-[#143B58]">3. Solo Beef / Fish Hotpot:</strong> Dip beef/fish and approved greens only; skip noodles &amp; starchy fish balls.
+          </div>
+        `,
+        streakStatsBadge: 'Discipline Streak',
+        profileTag: 'Female • 1m59',
+        weightTrackerTitle: 'Weight Roadmap',
+        milestone1Label: 'Stage 1: 48.0kg',
+        finalGoalLabel: 'Goal: 46.0kg',
+        lostLabel: 'Lost',
+        to48Label: 'To 48kg',
+        to46Label: 'To 46kg',
+        updateWeightLabel: 'Log current weight (kg):',
+        saveBtn: 'Save',
+        backupHeading: 'Backup & Restore Streak',
+        backupDesc: 'Save your streak, daily checkmarks, and weight logs so you never lose progress when switching browsers or clearing cache:',
+        downloadJsonBtn: 'Download .JSON',
+        importJsonBtn: 'Import .JSON',
+        quickCodeLabel: 'Quick Backup Code (Samsung Notes):',
+        copyCodeBtn: '📋 Copy Code',
+        backupPlaceholder: "Tap 'Copy Code' to save in Samsung Notes, or paste your saved backup code here to restore...",
+        restoreCodeBtn: '🔄 Restore From Pasted Code',
+        navToday: 'Today',
+        navWeekly: 'Weekly',
+        navNutrition: 'Nutrition',
+        navProgress: 'Progress',
+        timerBadge: 'Pilates Timer',
+        min10: '10 min',
+        min15: '15 min',
+        min20: '20 min',
+        timerReady: 'Turn on your TV and step onto the mat!',
+        timerSetMsg: 'Set to {m} min • Ready on the mat!',
+        timerRunningMsg: 'In progress... Drop shoulders, lengthen neck & breathe!',
+        timerDoneMsg: '✦ Workout complete! Check off your daily streak goal!',
+        timerResetMsg: 'Timer reset.',
+        startTimerBtn: '▶ Start',
+        pauseTimerBtn: '⏸ Pause',
+        resetTimerBtn: '↺ Reset',
+        toastAlreadyClaimed: '✦ Meow! You already lit up today’s streak star!',
+        toastClaimed: '✦ Amazing! Streak increased to {n} days!',
+        toastNextDay: '⏭️ Simulated {day}. Check all 7 goals to extend your streak!',
+        toastResetToday: 'Returned to actual today.',
+        toastAll7Done: '✦ Purr-fect 7/7! Streak jumped to {n} days!',
+        toastWater8: '💧 Completed 8 cups (2L) of water today!',
+        toastInvalidWeight: 'Please enter a valid weight (35 – 100 kg).',
+        toastSavedWeight: '✦ Saved new weight: {w} kg!',
+        toastDownloadedJson: '⬇️ Downloaded .JSON backup file to your Samsung phone!',
+        toastExportError: 'Could not download file; try Copy Code below.',
+        toastRestoredFile: '✦ Restored successfully! Current streak: {n} days!',
+        toastInvalidFile: 'Invalid backup file. Please choose a valid .JSON export.',
+        toastCopiedCode: '📋 Backup code copied! Paste it into Samsung Notes for safekeeping.',
+        toastCopyError: 'Could not generate backup code. Please try again.',
+        toastEmptyCode: 'Please paste a backup code into the box before restoring.',
+        toastRestoredCode: '✦ Restored {n}-day streak successfully!',
+        toastInvalidCode: 'Invalid backup code format. Please double-check.'
+      },
+      vi: {
+        daysUnit: 'ngày',
+        daysCap: 'Ngày',
+        bestLabel: 'Kỷ lục',
+        totalDaysLabel: 'Tổng ngày',
+        dayLabel: 'Lịch ngày:',
+        sevenGoalsHeading: '7 Mục Tiêu Giữ Chuỗi',
+        doneSuffix: 'xong',
+        catMsgEmpty: 'Meow! Tick đủ 7 mục tiêu hôm nay để thắp sáng ngôi sao streak nhé!',
+        catMsgStart: 'Khởi đầu tuyệt vời ({count}/7)! Tiếp tục giữ nhịp nhé!',
+        catMsgAlmost: 'Cố lên! Chỉ còn {left} mục tiêu nữa là tròn chuỗi hôm nay rồi!',
+        catMsgDone: 'Xuất sắc quá! Hôm nay bạn đã hoàn thành trọn vẹn 7/7 mục tiêu giữ chuỗi!',
+        completeBtnDefault: 'Hoàn thành mục tiêu hôm nay',
+        completeBtnDone: 'Đã giữ chuỗi Streak hôm nay!',
+        testStreakLabel: 'Test nối chuỗi ngày:',
+        nextDayBtn: '⏭️ Ngày tiếp theo',
+        resetTodayBtn: 'Hôm nay',
+        todayWorkoutsHeading: 'Lịch tập Blogilates hôm nay',
+        bodyTypeBadge: 'Dáng tam giác ngược',
+        morningBadge: '☀️ Sáng (07:10–07:30) • Đánh thức cơ',
+        eveningBadge: '🌙 Tối (20:30–20:55) • Định hình & thư giãn',
+        minSuffix: 'phút',
+        restLabel: 'Nghỉ',
+        openYoutubeBtn: 'Mở YouTube',
+        timerBtn: 'Bấm giờ',
+        sundayMorningRestNote: '🌿 Sáng Chủ nhật nghỉ ngơi hoàn toàn để phục hồi cơ',
+        notesSectionHeading: 'Note Ăn uống & Uống nước',
+        flexibleSubtitle: 'Linh hoạt, không gò bó giờ',
+        hydrationTitle: '💧 Uống đủ nước (8 ly ~ 2L)',
+        cupsUnit: 'ly',
+        warmWaterReminder: 'Nhớ uống 1 ly nước ấm đầu ngày nhé!',
+        minusCupBtn: '- 1 ly',
+        plusCupBtn: '+ Thêm 1 ly',
+        lunchNoteTitle: '🥩 Note Ăn Trưa (Đủ đạm)',
+        lunchMarkTodo: 'Tick đủ đạm',
+        lunchMarkDone: '✦ Đã đủ đạm',
+        lunchNoteDesc: 'Ưu tiên <strong>thịt bò nạc, cá, ức gà, trứng</strong> + rau xanh dịu vị (cải bó xôi, cải thìa, xà lách, dưa leo). Hạn chế tinh bột & đường.',
+        lunchPlaceholder: 'Ghi nhanh món trưa hôm nay (vd: Bò áp chảo + cải thìa)...',
+        dinnerNoteTitle: '🥗 Note Ăn Tối Sớm (18:00–18:30)',
+        dinnerMarkTodo: 'Tick healthy',
+        dinnerMarkDone: '✦ Đã healthy',
+        dinnerNoteDesc: 'Ăn gọn nhẹ, dễ tiêu; <strong>tránh sữa, phô mai, đậu, khoai</strong> và rau mùi hăng (diếp cá, thìa là, ớt chuông).',
+        dinnerPlaceholder: 'Ghi nhanh món tối hôm nay (vd: Cá hấp + bí xanh)...',
+        invertedTriangleTitle: 'Lưu ý dáng Tam Giác Ngược',
+        formTips: [
+          '• <strong>Hạ thấp hai vai & giữ cổ dài:</strong> Tránh gồng cầu vai khi tập tay/lưng (đặc biệt Thứ 3).',
+          '• <strong>Biến thể Plank:</strong> Hạ gối xuống thảm hoặc chống cẳng tay nếu mỏi cổ/vai để siết bụng chuẩn.',
+          '• <strong>Tăng kháng lực thân dưới:</strong> Đeo dây kháng lực ngang đùi ở các buổi mông – đùi (T2, T5, T7).'
+        ],
+        fullWeeklyHeading: '📅 Toàn bộ lịch Blogilates (T2 – CN)',
+        openDayBtn: 'Mở ngày →',
+        morningShort: '☀️ Buổi sáng (07:10–07:30)',
+        eveningShort: '🌙 Buổi tối (20:30–20:55)',
+        bloodTypeTag: 'Nhóm máu B • ~1.350 kcal/ngày',
+        nutritionHeroTitle: 'Nguyên tắc ăn gọn & êm bụng',
+        nutritionHeroDesc: 'Không cần ăn sáng nếu cơ thể đã quen. Duy trì bữa trưa đủ đạm & bữa tối sớm (18:00–18:30), uống nước ấm & đủ 2L+ nước.',
+        filterAll: 'Tất cả',
+        filterGood: '✅ Ưu tiên',
+        filterAvoid: '🚫 Tránh',
+        goodFoodsHeading: '✅ Thực phẩm nên ưu tiên',
+        goodFoodsHtml: `
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#143B58] mb-0.5">🥩 Đạm nạc hấp thụ tốt (Nhóm máu B)</div>
+            <p>Thịt bò nạc, cá hồi, cá thu, cá lóc/basa, ức gà, trứng, hải sản.</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#143B58] mb-0.5">🥬 Rau xanh dịu vị, dễ tiêu</div>
+            <p>Cải bó xôi, cải thìa, cải ngọt, xà lách, bí xanh, măng tây, dưa leo.</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#143B58] mb-0.5">🫒 Chất béo tốt vừa phải</div>
+            <p>Dầu ô liu, dầu bơ nguyên chất dùng áp chảo hoặc trộn rau.</p>
+          </div>
+        `,
+        avoidFoodsHeading: '🚫 Tuyệt đối tránh',
+        avoidFoodsHtml: `
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#C93B2B] mb-0.5">🥛 Sữa &amp; Phô mai</div>
+            <p>Sữa bò, sữa đặc, phô mai (tránh bất dung nạp &amp; đầy bụng).</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#C93B2B] mb-0.5">🍚 Tinh bột &amp; Đường ngọt</div>
+            <p>Cơm trắng, bún, phở, bánh mì, trà sữa, nước ngọt, bánh kẹo.</p>
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border-2 border-[#143B58]">
+            <div class="font-geo font-black text-[#C93B2B] mb-0.5">🫘 Đậu, Khoai &amp; Rau mùi hăng</div>
+            <p>Các loại đậu, các loại khoai, <strong>diếp cá, thìa là, ớt chuông</strong>.</p>
+          </div>
+        `,
+        takeoutHeading: '🛵 Mẹo đặt món nhanh khi ít nấu ăn',
+        takeoutHtml: `
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border border-[#143B58]">
+            <strong class="font-geo text-[#C93B2B]">1. Bò né / Bít tết:</strong> Bỏ bánh mì, khoai, phô mai; lấy thịt bò, trứng ốp la &amp; rau xanh.
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border border-[#143B58]">
+            <strong class="font-geo text-[#143B58]">2. Cá hấp / Gà nướng + Rau luộc:</strong> Chọn cá/gà ít dầu ăn kèm cải thìa, cải ngọt hoặc bí xanh luộc.
+          </div>
+          <div class="p-3 rounded-2xl bg-[#EDE4D0] border border-[#143B58]">
+            <strong class="font-geo text-[#143B58]">3. Lẩu bò / Lẩu cá 1 người:</strong> Chỉ nhúng thịt bò/cá và rau hợp vị, bỏ bún/mì và viên thả lẩu.
+          </div>
+        `,
+        streakStatsBadge: 'Chuỗi Kỷ Luật',
+        profileTag: 'Nữ • Cao 1m59',
+        weightTrackerTitle: 'Lộ trình cân nặng',
+        milestone1Label: 'Mốc 1: 48.0kg',
+        finalGoalLabel: 'Đích: 46.0kg',
+        lostLabel: 'Đã giảm',
+        to48Label: 'Tới 48kg',
+        to46Label: 'Tới 46kg',
+        updateWeightLabel: 'Cập nhật cân nặng mới (kg):',
+        saveBtn: 'Lưu',
+        backupHeading: 'Sao lưu & Khôi phục Streak',
+        backupDesc: 'Lưu trữ chuỗi streak, lịch sử tick hằng ngày và cân nặng để không bao giờ mất khi đổi máy hoặc xóa cache:',
+        downloadJsonBtn: 'Tải file .JSON',
+        importJsonBtn: 'Nhập file .JSON',
+        quickCodeLabel: 'Mã sao lưu nhanh (Samsung Notes):',
+        copyCodeBtn: '📋 Sao chép mã',
+        backupPlaceholder: "Bấm 'Sao chép mã' để lưu vào Samsung Notes, hoặc dán mã cũ vào đây để khôi phục...",
+        restoreCodeBtn: '🔄 Khôi phục từ mã đã dán',
+        navToday: 'Hôm nay',
+        navWeekly: 'Lịch tuần',
+        navNutrition: 'Dinh dưỡng',
+        navProgress: 'Tiến độ',
+        timerBadge: 'Đồng hồ Pilates',
+        min10: '10 phút',
+        min15: '15 phút',
+        min20: '20 phút',
+        timerReady: 'Sẵn sàng bật TV và bước lên thảm!',
+        timerSetMsg: 'Đã đặt {m} phút • Sẵn sàng trên thảm!',
+        timerRunningMsg: 'Đang tập... Hạ thấp vai, giữ cổ dài & hít thở đều!',
+        timerDoneMsg: '✦ Hoàn thành buổi tập! Tick mục tiêu giữ chuỗi nhé!',
+        timerResetMsg: 'Đã đặt lại đồng hồ.',
+        startTimerBtn: '▶ Bắt đầu',
+        pauseTimerBtn: '⏸ Tạm dừng',
+        resetTimerBtn: '↺ Đặt lại',
+        toastAlreadyClaimed: '✦ Meow! Bạn đã thắp sáng ngôi sao streak hôm nay rồi!',
+        toastClaimed: '✦ Tuyệt vời! Chuỗi streak tăng lên {n} ngày!',
+        toastNextDay: '⏭️ Đã sang {day}. Tick 7 mục tiêu để nối tiếp streak!',
+        toastResetToday: 'Đã quay về ngày thực tế hôm nay.',
+        toastAll7Done: '✦ Hoàn hảo 7/7! Ngôi sao streak đã tăng lên {n} ngày!',
+        toastWater8: '💧 Đã uống đủ 8 ly nước (2L) hôm nay!',
+        toastInvalidWeight: 'Vui lòng nhập cân nặng hợp lệ (35 – 100 kg).',
+        toastSavedWeight: '✦ Đã lưu cân nặng mới: {w} kg!',
+        toastDownloadedJson: '⬇️ Đã tải file sao lưu .JSON về điện thoại Samsung!',
+        toastExportError: 'Không thể xuất file, hãy thử dùng nút Sao chép mã bên dưới.',
+        toastRestoredFile: '✦ Khôi phục thành công! Chuỗi streak hiện tại: {n} ngày!',
+        toastInvalidFile: 'File sao lưu không hợp lệ, vui lòng chọn đúng file .JSON đã xuất.',
+        toastCopiedCode: '📋 Đã sao chép mã sao lưu! Bạn có thể dán vào Samsung Notes để cất giữ.',
+        toastCopyError: 'Lỗi tạo mã sao lưu, vui lòng thử lại.',
+        toastEmptyCode: 'Vui lòng dán mã sao lưu vào ô trống trước khi bấm Khôi phục.',
+        toastRestoredCode: '✦ Đã khôi phục chuỗi {n} ngày thành công!',
+        toastInvalidCode: 'Mã sao lưu không đúng định dạng, hãy kiểm tra lại nhé.'
+      }
+    };
+
+    const DAYS_ORDER = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+
+    const DAY_SHORT_LABELS = {
+      en: { T2: 'Mon', T3: 'Tue', T4: 'Wed', T5: 'Thu', T6: 'Fri', T7: 'Sat', CN: 'Sun' },
+      vi: { T2: 'T2', T3: 'T3', T4: 'T4', T5: 'T5', T6: 'T6', T7: 'T7', CN: 'CN' }
+    };
+
+    const DAY_FULL_NAMES = {
+      en: {
+        T2: 'Monday',
+        T3: 'Tuesday',
+        T4: 'Wednesday',
+        T5: 'Thursday',
+        T6: 'Friday',
+        T7: 'Saturday',
+        CN: 'Sunday'
+      },
+      vi: {
+        T2: 'Thứ 2',
+        T3: 'Thứ 3',
+        T4: 'Thứ 4',
+        T5: 'Thứ 5',
+        T6: 'Thứ 6',
+        T7: 'Thứ 7',
+        CN: 'Chủ nhật'
+      }
+    };
+
+    const WORKOUT_PLAN = {
+      T2: {
+        morning: {
+          title: {
+            en: '15 Min Booty Sculpting / 20 Min Butt Lift & Tone',
+            vi: '15 Min Booty Sculpting / 20 Min Butt Lift & Tone'
+          },
+          focus: {
+            en: 'Glute lift & round shape • Focus on mind-muscle glute activation',
+            vi: 'Mông nâng form • Tập trung cảm nhận cơ mông tròn'
+          },
+          duration: 20,
+          query: 'Blogilates 15 Min Booty Sculpting Workout'
+        },
+        evening: {
+          title: {
+            en: '10 Min Lower Abs + 10 Min Pilates Stretch',
+            vi: '10 Min Lower Abs + 10 Min Pilates Stretch'
+          },
+          focus: {
+            en: 'Lower abs & spine stretch • Slow relaxing mat flow',
+            vi: 'Bụng dưới & giãn cơ • Nhịp chậm thư giãn trên thảm'
+          },
+          duration: 20,
+          query: 'Blogilates 10 Min Lower Abs'
+        }
+      },
+      T3: {
+        morning: {
+          title: {
+            en: '12 Min Slim Arms & Back / Sculpted Arms (No Pushups)',
+            vi: '12 Min Slim Arms & Back / Sculpted Arms (No Pushups)'
+          },
+          focus: {
+            en: 'Lean arms & upper back — Keep shoulders down & neck long',
+            vi: 'Tay & lưng thon — Nhớ hạ thấp vai, giữ cổ dài'
+          },
+          duration: 15,
+          query: 'Blogilates 12 Min Slim Arms and Back'
+        },
+        evening: {
+          title: {
+            en: '12 Min Side Butt & Hip Dips',
+            vi: '12 Min Side Butt & Hip Dips'
+          },
+          focus: {
+            en: 'Side-lying glutes & rounding out hip dips',
+            vi: 'Mông nằm nghiêng & làm đầy hõm hông'
+          },
+          duration: 15,
+          query: 'Blogilates 12 Min Side Butt and Hip Dips'
+        }
+      },
+      T4: {
+        morning: {
+          title: {
+            en: '15 Min Hourglass Abs / 15 Min Flat Belly Pilates',
+            vi: '15 Min Hourglass Abs / 15 Min Flat Belly Pilates'
+          },
+          focus: {
+            en: 'Hourglass waist cinch & deep transverse core',
+            vi: 'Eo đồng hồ cát & siết cơ bụng ngang'
+          },
+          duration: 15,
+          query: 'Blogilates 15 Min Hourglass Abs'
+        },
+        evening: {
+          title: {
+            en: 'Gentle Mat Core Flow',
+            vi: 'Core nhẹ nhàng trên thảm'
+          },
+          focus: {
+            en: 'Slow supine core control • Zero neck or trap tension',
+            vi: 'Bụng nằm ngửa nhịp chậm • Không gồng cổ vai'
+          },
+          duration: 15,
+          query: 'Blogilates 15 Min Beginner Pilates Core'
+        }
+      },
+      T5: {
+        morning: {
+          title: {
+            en: '15 Min Inner Thighs & Booty / Thigh Gap & Round Booty',
+            vi: '15 Min Inner Thighs & Booty / Thigh Gap & Round Booty'
+          },
+          focus: {
+            en: 'Inner thigh toning & lower-body proportion balance',
+            vi: 'Đùi trong thon gọn & mông cân đối thân dưới'
+          },
+          duration: 15,
+          query: 'Blogilates 15 Min Inner Thighs and Booty'
+        },
+        evening: {
+          title: {
+            en: 'Side-Lying Glutes & Hip Opener Stretch',
+            vi: 'Mông nằm nghiêng & giãn cơ hông'
+          },
+          focus: {
+            en: 'Side-lying series & gentle hip mobility release',
+            vi: 'Side-lying series & mở khớp hông êm ái'
+          },
+          duration: 15,
+          query: 'Blogilates Side Lying Butt Workout Stretch'
+        }
+      },
+      T6: {
+        morning: {
+          title: {
+            en: '20 Min Fat Burning / 15 Min Low Impact Cardio Pilates',
+            vi: '20 Min Fat Burning / 15 Min Low Impact Cardio Pilates'
+          },
+          focus: {
+            en: 'Steady fat burn • Apartment-friendly low impact',
+            vi: 'Đốt mỡ nhẹ nhàng • Ít tác động, không ồn'
+          },
+          duration: 20,
+          query: 'Blogilates 15 Min Low Impact Cardio Pilates'
+        },
+        evening: {
+          title: {
+            en: 'Lower Abs & Spine Decompression',
+            vi: 'Bụng dưới & thư giãn cột sống'
+          },
+          focus: {
+            en: 'Light lower core work + back release after workweek',
+            vi: 'Siết bụng dưới nhẹ + thả lỏng lưng sau tuần làm việc'
+          },
+          duration: 15,
+          query: 'Blogilates 10 Min Lower Abs Stretch'
+        }
+      },
+      T7: {
+        morning: {
+          title: {
+            en: '20 Min Intense Booty & Thighs',
+            vi: '20 Min Intense Booty & Thighs'
+          },
+          focus: {
+            en: 'Deep glute & thigh sculpting (add resistance band if available)',
+            vi: 'Mông & đùi chuyên sâu (có thể thêm dây kháng lực)'
+          },
+          duration: 20,
+          query: 'Blogilates 20 Min Intense Booty and Thighs'
+        },
+        evening: {
+          title: {
+            en: '15 Min Full Body Stretch',
+            vi: '15 Min Full Body Stretch'
+          },
+          focus: {
+            en: 'Total body flexibility & recovery stretch',
+            vi: 'Giãn cơ toàn thân phục hồi'
+          },
+          duration: 15,
+          query: 'Blogilates 15 Min Full Body Stretch'
+        }
+      },
+      CN: {
+        morning: {
+          title: {
+            en: 'Active Rest / Sleep-In Recovery',
+            vi: 'Nghỉ ngơi / Ngủ bù nhẹ'
+          },
+          focus: {
+            en: 'Complete muscular & nervous system recovery',
+            vi: 'Phục hồi cơ bắp và hệ thần kinh hoàn toàn'
+          },
+          duration: 0,
+          query: ''
+        },
+        evening: {
+          title: {
+            en: '10 Min Bedtime Stretch (Optional Rest)',
+            vi: '10 Min Bedtime Stretch (hoặc nghỉ hẳn)'
+          },
+          focus: {
+            en: 'Gentle mat/bed stretch for deep restful sleep',
+            vi: 'Giãn cơ nhẹ nhàng trên giường/thảm giúp ngủ sâu'
+          },
+          duration: 10,
+          query: 'Blogilates 10 Min Bedtime Stretch'
+        }
+      }
+    };
+
+    const STREAK_GOALS = [
+      {
+        id: 'wake_on_time',
+        title: { en: 'Wake Up On Time', vi: 'Dậy đúng giờ' },
+        sub: { en: 'Rise at 07:00 energized & refreshed', vi: 'Thức dậy 7h00 tràn đầy năng lượng' },
+        badge: { en: '07:00', vi: '7h00' },
+        color: '#143B58'
+      },
+      {
+        id: 'warm_water',
+        title: { en: 'Drink Warm Water', vi: 'Uống nước ấm' },
+        sub: { en: '1 cup of warm water to wake up digestion', vi: '1 ly nước ấm đánh thức tiêu hóa buổi sáng' },
+        badge: { en: 'Morning', vi: 'Sáng' },
+        color: '#79A3C1'
+      },
+      {
+        id: 'morning_workout',
+        title: { en: 'Morning Pilates', vi: 'Tập buổi sáng' },
+        sub: { en: 'Complete morning Blogilates session (07:10–07:30)', vi: 'Hoàn thành bài Blogilates sáng trên TV' },
+        badge: { en: 'Pilates', vi: 'Pilates' },
+        color: '#C93B2B'
+      },
+      {
+        id: 'lunch_protein',
+        title: { en: 'High-Protein Lunch', vi: 'Ăn trưa đủ đạm' },
+        sub: { en: 'Lean beef/fish/chicken/eggs + approved greens', vi: 'Thịt bò/cá/gà/trứng + rau xanh hợp vị' },
+        badge: { en: 'Lunch', vi: 'Trưa' },
+        color: '#143B58'
+      },
+      {
+        id: 'dinner_healthy',
+        title: { en: 'Healthy Early Dinner', vi: 'Ăn tối healthy' },
+        sub: { en: 'Light meal (18:00–18:30); no carbs, sugar, dairy, beans/potatoes', vi: 'Nhẹ bụng, không tinh bột/đường/sữa/đậu/khoai' },
+        badge: { en: 'Dinner', vi: 'Tối' },
+        color: '#79A3C1'
+      },
+      {
+        id: 'evening_workout',
+        title: { en: 'Evening Pilates', vi: 'Tập tối' },
+        sub: { en: 'Sculpting & relaxing mat flow (20:30–20:55)', vi: 'Pilates thư giãn & giãn cơ trên thảm' },
+        badge: { en: 'Pilates', vi: 'Pilates' },
+        color: '#C93B2B'
+      },
+      {
+        id: 'enough_water',
+        title: { en: 'Drink Enough Water', vi: 'Uống đủ nước' },
+        sub: { en: 'Reach full 8 cups (2 – 2.5L) daily hydration', vi: 'Đạt đủ 2 – 2,5 lít (8 ly) trong ngày' },
+        badge: { en: '8 Cups', vi: '8 Ly' },
+        color: '#143B58'
+      }
+    ];
+
+    // ==================== STATE & LOCALSTORAGE (BACKWARD COMPATIBLE) ====================
+    const STORAGE_KEY = 'pilates_streak_indigo_cat_v3';
+
+    let appState = {
+      lang: 'en',
+      streak: 0,
+      bestStreak: 0,
+      completedDates: [],
+      checksByDate: {},
+      waterByDate: {},
+      memosByDate: {},
+      weight: 56.0,
+      simDayOffset: 0
+    };
+
+    let selectedDayKey = 'T2';
+
+    function t(key, vars = {}) {
+      const lang = appState.lang === 'vi' ? 'vi' : 'en';
+      let str = (I18N[lang] && I18N[lang][key] !== undefined) ? I18N[lang][key] : (I18N.en[key] || key);
+      if (typeof str === 'string') {
+        Object.keys(vars).forEach(k => {
+          str = str.replace(`{${k}}`, vars[k]);
+        });
+      }
+      return str;
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          appState = { ...appState, ...parsed };
+          if (!appState.lang) appState.lang = 'en';
+        }
+      } catch (e) {
+        console.error('Error loading state:', e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        console.error('Error saving state:', e);
+      }
+    }
+
+    function setLanguage(lang) {
+      appState.lang = lang === 'vi' ? 'vi' : 'en';
+      document.documentElement.lang = appState.lang;
+      saveState();
+      applyStaticTranslations();
+      renderAll();
+    }
+
+    function applyStaticTranslations() {
+      const lang = appState.lang === 'vi' ? 'vi' : 'en';
+
+      // Update EN / VI toggle button styles
+      const btnEn = document.getElementById('lang-btn-en');
+      const btnVi = document.getElementById('lang-btn-vi');
+      if (lang === 'en') {
+        btnEn.className = 'px-2 py-1 rounded-lg font-geo text-[10px] font-black transition bg-[#F5EFE2] text-[#143B58] shadow-[1px_1px_0px_#0D293E]';
+        btnVi.className = 'px-2 py-1 rounded-lg font-geo text-[10px] font-extrabold transition text-[#90B8D4]';
+      } else {
+        btnVi.className = 'px-2 py-1 rounded-lg font-geo text-[10px] font-black transition bg-[#F5EFE2] text-[#143B58] shadow-[1px_1px_0px_#0D293E]';
+        btnEn.className = 'px-2 py-1 rounded-lg font-geo text-[10px] font-extrabold transition text-[#90B8D4]';
+      }
+
+      // Translate all [data-i18n] elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const val = t(key);
+        if (typeof val === 'string') {
+          el.innerHTML = val;
+        }
+      });
+
+      // Placeholders
+      document.getElementById('lunch-memo-input').placeholder = t('lunchPlaceholder');
+      document.getElementById('dinner-memo-input').placeholder = t('dinnerPlaceholder');
+      document.getElementById('backup-code-box').placeholder = t('backupPlaceholder');
+
+      // Form tips list
+      const tipsList = document.getElementById('form-tips-list');
+      tipsList.innerHTML = I18N[lang].formTips.map(item => `<li>${item}</li>`).join('');
+
+      // Nutrition lists
+      document.getElementById('good-foods-body').innerHTML = t('goodFoodsHtml');
+      document.getElementById('avoid-foods-body').innerHTML = t('avoidFoodsHtml');
+      document.getElementById('takeout-body').innerHTML = t('takeoutHtml');
+    }
+
+    function getVirtualToday() {
+      const d = new Date();
+      d.setDate(d.getDate() + (appState.simDayOffset || 0));
+      return d;
+    }
+
+    function formatDateKey(dateObj) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const d = String(dateObj.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function getDayKeyFromDate(dateObj) {
+      const jsDay = dateObj.getDay();
+      return jsDay === 0 ? 'CN' : DAYS_ORDER[jsDay - 1];
+    }
+
+    // ==================== STREAK ENGINE ====================
+    function recalculateStreak() {
+      const today = getVirtualToday();
+      const todayKey = formatDateKey(today);
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayKey = formatDateKey(yesterday);
+
+      const completedSet = new Set(appState.completedDates);
+
+      let cursor = null;
+      if (completedSet.has(todayKey)) {
+        cursor = new Date(today);
+      } else if (completedSet.has(yesterdayKey)) {
+        cursor = new Date(yesterday);
+      } else {
+        appState.streak = 0;
+        return;
+      }
+
+      let count = 0;
+      while (completedSet.has(formatDateKey(cursor))) {
+        count++;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      appState.streak = count;
+      if (count > appState.bestStreak) {
+        appState.bestStreak = count;
+      }
+    }
+
+    function isTodayCompleted() {
+      const todayKey = formatDateKey(getVirtualToday());
+      return appState.completedDates.includes(todayKey);
+    }
+
+    function animateMascotCat() {
+      const cat = document.getElementById('mascot-cat');
+      if (!cat) return;
+      cat.classList.remove('cat-celebrate');
+      void cat.offsetWidth;
+      cat.classList.add('cat-celebrate');
+    }
+
+    function claimDailyStreak() {
+      const todayKey = formatDateKey(getVirtualToday());
+      if (appState.completedDates.includes(todayKey)) {
+        animateMascotCat();
+        launchConfetti();
+        showToast(t('toastAlreadyClaimed'));
+        return;
+      }
+
+      if (!appState.checksByDate[todayKey]) {
+        appState.checksByDate[todayKey] = {};
+      }
+      STREAK_GOALS.forEach(goal => {
+        appState.checksByDate[todayKey][goal.id] = true;
+      });
+      if ((appState.waterByDate[todayKey] || 0) < 8) {
+        appState.waterByDate[todayKey] = 8;
+      }
+
+      appState.completedDates.push(todayKey);
+      recalculateStreak();
+      saveState();
+      renderAll();
+      animateMascotCat();
+      launchConfetti();
+      showToast(t('toastClaimed', { n: appState.streak }));
+    }
+
+    function simulateNextDay() {
+      appState.simDayOffset = (appState.simDayOffset || 0) + 1;
+      selectedDayKey = getDayKeyFromDate(getVirtualToday());
+      recalculateStreak();
+      saveState();
+      renderAll();
+      const lang = appState.lang === 'vi' ? 'vi' : 'en';
+      showToast(t('toastNextDay', { day: DAY_FULL_NAMES[lang][selectedDayKey] }));
+    }
+
+    function resetSimulation() {
+      appState.simDayOffset = 0;
+      selectedDayKey = getDayKeyFromDate(getVirtualToday());
+      recalculateStreak();
+      saveState();
+      renderAll();
+      showToast(t('toastResetToday'));
+    }
+
+    // ==================== RENDER UI ====================
+    function renderHeaderAndStreak() {
+      recalculateStreak();
+      const lang = appState.lang === 'vi' ? 'vi' : 'en';
+      const todayCompleted = isTodayCompleted();
+
+      document.getElementById('streak-count').textContent = appState.streak;
+      document.getElementById('best-streak').textContent = appState.bestStreak;
+      document.getElementById('progress-streak-num').textContent = appState.streak;
+      document.getElementById('progress-best-streak').textContent = appState.bestStreak;
+      document.getElementById('progress-total-days').textContent = appState.completedDates.length;
+
+      const starEl = document.getElementById('header-star');
+      if (todayCompleted || appState.streak > 0) {
+        starEl.classList.add('sparkle-spin');
+      } else {
+        starEl.classList.remove('sparkle-spin');
+      }
+
+      const simBadge = document.getElementById('sim-day-badge');
+      const resetSimBtn = document.getElementById('reset-sim-btn');
+      if (appState.simDayOffset > 0) {
+        simBadge.classList.remove('hidden');
+        document.getElementById('sim-offset-num').textContent = appState.simDayOffset;
+        resetSimBtn.classList.remove('hidden');
+      } else {
+        simBadge.classList.add('hidden');
+        resetSimBtn.classList.add('hidden');
+      }
+
+      // 7-day weekly strip
+      const today = getVirtualToday();
+      const currentJsDay = today.getDay();
+      const diffToMonday = currentJsDay === 0 ? -6 : 1 - currentJsDay;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() + diffToMonday);
+
+      const todayKey = formatDateKey(today);
+      const weekBar = document.getElementById('week-streak-bar');
+      weekBar.innerHTML = '';
+
+      DAYS_ORDER.forEach((dayCode, idx) => {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + idx);
+        const dKey = formatDateKey(d);
+        const done = appState.completedDates.includes(dKey);
+        const isToday = dKey === todayKey;
+
+        let boxClass = 'bg-[#F5EFE2]/85 border border-[#90B8D4] text-[#143B58]/40';
+        let symbol = '•';
+        if (done) {
+          boxClass = 'bg-[#C93B2B] border-2 border-[#F5EFE2] text-[#F5EFE2]';
+          symbol = '✦';
+        } else if (isToday) {
+          boxClass = 'bg-[#F5EFE2] border-2 border-dashed border-[#C93B2B] text-[#143B58]';
+          symbol = '★';
+        }
+
+        const cell = document.createElement('div');
+        cell.className = `flex flex-col items-center py-1 rounded-xl ${isToday ? 'bg-[#184A6E] border border-[#90B8D4]' : ''}`;
+        cell.innerHTML = `
+          <span class="font-geo text-[10px] font-black ${isToday ? 'text-[#F5EFE2]' : 'text-[#90B8D4]'}">${DAY_SHORT_LABELS[lang][dayCode]}</span>
+          <div class="w-7 h-7 mt-0.5 rounded-lg flex items-center justify-center text-xs font-black ${boxClass}">
+            ${symbol}
+          </div>
+        `;
+        weekBar.appendChild(cell);
+      });
+    }
+
+    function renderDaySelector() {
+      const lang = appState.lang === 'vi' ? 'vi' : 'en';
+      const container = document.getElementById('day-selector-pills');
+      container.innerHTML = '';
+      DAYS_ORDER.forEach(dayCode => {
+        const active = dayCode === selectedDayKey;
+        const btn = document.createElement('button');
+        btn.textContent = DAY_SHORT_LABELS[lang][dayCode];
+        btn.className = active
+          ? 'px-2.5 py-1 rounded-xl font-geo text-xs font-black bg-[#C93B2B] text-[#F5EFE2] border-2 border-[#143B58]'
+          : 'px-2 py-1 rounded-xl font-geo text-xs font-extrabold text-[#143B58]/70 hover:bg-[#EDE4D0]';
+        btn.onclick = () => {
+          selectedDayKey = dayCode;
+          renderTodayTab();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderTodayTab() {
+      renderDaySelector();
+      const lang = appState.lang === 'vi' ? 'vi' : 'en';
+      const plan = WORKOUT_PLAN[selectedDayKey];
+      const todayKey = formatDateKey(getVirtualToday());
+      const checks = appState.checksByDate[todayKey] || {};
+
+      document.getElementById('today-day-label').textContent = DAY_FULL_NAMES[lang][selectedDayKey];
+
+      // 1. Render 7 daily streak goals
+      const goalsContainer = document.getElementById('streak-goals-container');
+      goalsContainer.innerHTML = '';
+      let checkedCount = 0;
+
+      STREAK_GOALS.forEach(goal => {
+        const isChecked = !!checks[goal.id];
+        if (isChecked) checkedCount++;
+
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.onclick = () => toggleStreakGoal(goal.id);
+        row.className = `w-full text-left p-3 rounded-2xl border-2 border-[#143B58] transition flex items-center gap-3 ${
+          isChecked
+            ? 'bg-[#EDE4D0] shadow-[1px_1px_0px_#143B58]'
+            : 'bg-[#FFFDF9] shadow-[3px_3px_0px_#143B58] active:translate-x-[2px] active:translate-y-[2px]'
+        }`;
+
+        const badgeBg = goal.color === '#79A3C1' ? '#EDE4D0' : goal.color;
+        const badgeText = goal.color === '#79A3C1' ? '#143B58' : '#F5EFE2';
+
+        row.innerHTML = `
+          <div class="w-7 h-7 rounded-xl flex items-center justify-center shrink-0 border-2 border-[#143B58] transition ${
+            isChecked ? 'bg-[#C93B2B] text-[#F5EFE2]' : 'bg-[#F5EFE2] text-transparent'
+          }">
+            <span class="text-sm font-black">✦</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-geo text-xs font-black tracking-wide ${
+                isChecked ? 'line-through text-[#143B58]/45' : 'text-[#143B58]'
+              }">${goal.title[lang]}</span>
+              <span class="font-geo text-[10px] font-extrabold px-2 py-0.5 rounded-md border border-[#143B58] shrink-0" style="background-color: ${badgeBg}; color: ${badgeText}">
+                ${goal.badge[lang]}
+              </span>
+            </div>
+            <div class="text-[11px] font-semibold mt-0.5 truncate ${
+              isChecked ? 'text-[#143B58]/40' : 'text-[#143B58]/75'
+            }">${goal.sub[lang]}</div>
+          </div>
+        `;
+        goalsContainer.appendChild(row);
+      });
+
+      const totalGoals = STREAK_GOALS.length;
+      const pct = Math.round((checkedCount / totalGoals) * 100);
+      document.getElementById('daily-progress-text').textContent = `${checkedCount}/${totalGoals} ${t('doneSuffix')}`;
+      document.getElementById('daily-progress-bar').style.width = `${pct}%`;
+
+      const catMsg = document.getElementById('cat-encouragement-text');
+      if (checkedCount === totalGoals || isTodayCompleted()) {
+        catMsg.textContent = t('catMsgDone');
+      } else if (checkedCount >= 4) {
+        catMsg.textContent = t('catMsgAlmost', { left: totalGoals - checkedCount });
+      } else if (checkedCount > 0) {
+        catMsg.textContent = t('catMsgStart', { count: checkedCount });
+      } else {
+        catMsg.textContent = t('catMsgEmpty');
+      }
+
+      const streakBtn = document.getElementById('complete-streak-btn');
+      const streakBtnText = document.getElementById('complete-streak-btn-text');
+      if (isTodayCompleted()) {
+        streakBtn.className = 'quilt-btn btn-navy w-full py-3.5 px-4 rounded-2xl font-geo font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2';
+        streakBtnText.textContent = t('completeBtnDone');
+      } else {
+        streakBtn.className = 'quilt-btn btn-crimson w-full py-3.5 px-4 rounded-2xl font-geo font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2';
+        streakBtnText.textContent = t('completeBtnDefault');
+      }
+
+      // 2. Render Morning & Evening Blogilates workouts
+      document.getElementById('morning-workout-title').textContent = plan.morning.title[lang];
+      document.getElementById('morning-workout-focus').textContent = plan.morning.focus[lang];
+      document.getElementById('morning-workout-duration').textContent =
+        plan.morning.duration > 0 ? `${plan.morning.duration} ${t('minSuffix')}` : t('restLabel');
+
+      const amActions = document.getElementById('morning-workout-actions');
+      if (plan.morning.duration > 0) {
+        const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(plan.morning.query)}`;
+        const safeTitle = plan.morning.title[lang].replace(/'/g, "\\'");
+        amActions.innerHTML = `
+          <a href="${ytUrl}" target="_blank" rel="noopener noreferrer" class="quilt-btn btn-cream py-2.5 px-3 rounded-xl font-geo text-[11px] font-black flex items-center justify-center gap-1.5">
+            <span class="text-[#C93B2B]">▶</span> ${t('openYoutubeBtn')}
+          </a>
+          <button onclick="openTimerModal('${safeTitle}', ${plan.morning.duration})" class="quilt-btn btn-crimson py-2.5 px-3 rounded-xl font-geo text-[11px] font-black flex items-center justify-center gap-1.5">
+            <span>⏱️</span> ${t('timerBtn')}
+          </button>
+        `;
+      } else {
+        amActions.innerHTML = `
+          <div class="col-span-2 text-center py-2 px-3 rounded-xl bg-[#F5EFE2] border-2 border-[#143B58] text-xs font-bold text-[#143B58]">
+            ${t('sundayMorningRestNote')}
+          </div>
+        `;
+      }
+
+      document.getElementById('evening-workout-title').textContent = plan.evening.title[lang];
+      document.getElementById('evening-workout-focus').textContent = plan.evening.focus[lang];
+      document.getElementById('evening-workout-duration').textContent = `${plan.evening.duration} ${t('minSuffix')}`;
+
+      const pmActions = document.getElementById('evening-workout-actions');
+      const pmYtUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(plan.evening.query)}`;
+      const safePmTitle = plan.evening.title[lang].replace(/'/g, "\\'");
+      pmActions.innerHTML = `
+        <a href="${pmYtUrl}" target="_blank" rel="noopener noreferrer" class="quilt-btn btn-cream py-2.5 px-3 rounded-xl font-geo text-[11px] font-black flex items-center justify-center gap-1.5">
+          <span class="text-[#C93B2B]">▶</span> ${t('openYoutubeBtn')}
+        </a>
+        <button onclick="openTimerModal('${safePmTitle}', ${plan.evening.duration})" class="quilt-btn btn-navy py-2.5 px-3 rounded-xl font-geo text-[11px] font-black flex items-center justify-center gap-1.5">
+          <span>⏱️</span> ${t('timerBtn')}
+        </button>
+      `;
+
+      // 3. Render Hydration & Meal Notes
+      renderWaterAndMealNotes();
+    }
+
+    function toggleStreakGoal(goalId) {
+      const todayKey = formatDateKey(getVirtualToday());
+      if (!appState.checksByDate[todayKey]) {
+        appState.checksByDate[todayKey] = {};
+      }
+      appState.checksByDate[todayKey][goalId] = !appState.checksByDate[todayKey][goalId];
+
+      if (goalId === 'enough_water' && appState.checksByDate[todayKey][goalId]) {
+        appState.waterByDate[todayKey] = 8;
+      }
+
+      animateMascotCat();
+
+      const allDone = STREAK_GOALS.every(g => !!appState.checksByDate[todayKey][g.id]);
+      if (allDone && !appState.completedDates.includes(todayKey)) {
+        appState.completedDates.push(todayKey);
+        recalculateStreak();
+        saveState();
+        renderAll();
+        launchConfetti();
+        showToast(t('toastAll7Done', { n: appState.streak }));
+        return;
+      }
+
+      saveState();
+      renderTodayTab();
+    }
+
+    function toggleGoalFromNote(goalId) {
+      toggleStreakGoal(goalId);
+    }
+
+    // ==================== WATER TRACKER & MEAL QUICK NOTES ====================
+    function renderWaterAndMealNotes() {
+      const todayKey = formatDateKey(getVirtualToday());
+      const waterCount = appState.waterByDate[todayKey] || 0;
+      const checks = appState.checksByDate[todayKey] || {};
+      const memos = appState.memosByDate[todayKey] || {};
+
+      document.getElementById('water-count-text').textContent = waterCount;
+
+      const grid = document.getElementById('water-glasses-grid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= 8; i++) {
+        const filled = i <= waterCount;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.onclick = () => setWaterCount(i);
+        btn.className = `h-9 rounded-xl border-2 border-[#143B58] flex items-center justify-center text-xs font-black transition ${
+          filled ? 'bg-[#143B58] text-[#F5EFE2] shadow-[1px_1px_0px_#143B58]' : 'bg-[#F5EFE2] text-[#143B58]/35'
+        }`;
+        btn.textContent = filled ? '💧' : i;
+        grid.appendChild(btn);
+      }
+
+      const lunchBadge = document.getElementById('note-lunch-badge');
+      if (checks.lunch_protein) {
+        lunchBadge.textContent = t('lunchMarkDone');
+        lunchBadge.className = 'font-geo text-[10px] font-black px-2.5 py-0.5 rounded-lg border-2 border-[#143B58] bg-[#C93B2B] text-[#F5EFE2]';
+      } else {
+        lunchBadge.textContent = t('lunchMarkTodo');
+        lunchBadge.className = 'font-geo text-[10px] font-extrabold px-2.5 py-0.5 rounded-lg border-2 border-[#143B58] bg-[#EDE4D0] text-[#143B58]';
+      }
+
+      const dinnerBadge = document.getElementById('note-dinner-badge');
+      if (checks.dinner_healthy) {
+        dinnerBadge.textContent = t('dinnerMarkDone');
+        dinnerBadge.className = 'font-geo text-[10px] font-black px-2.5 py-0.5 rounded-lg border-2 border-[#143B58] bg-[#143B58] text-[#F5EFE2]';
+      } else {
+        dinnerBadge.textContent = t('dinnerMarkTodo');
+        dinnerBadge.className = 'font-geo text-[10px] font-extrabold px-2.5 py-0.5 rounded-lg border-2 border-[#143B58] bg-[#EDE4D0] text-[#143B58]';
+      }
+
+      document.getElementById('lunch-memo-input').value = memos.lunch || '';
+      document.getElementById('dinner-memo-input').value = memos.dinner || '';
+    }
+
+    function setWaterCount(val) {
+      const todayKey = formatDateKey(getVirtualToday());
+      const clamped = Math.max(0, Math.min(8, val));
+      appState.waterByDate[todayKey] = clamped;
+
+      if (!appState.checksByDate[todayKey]) {
+        appState.checksByDate[todayKey] = {};
+      }
+      if (clamped >= 8 && !appState.checksByDate[todayKey].enough_water) {
+        toggleStreakGoal('enough_water');
+        showToast(t('toastWater8'));
+        return;
+      } else if (clamped < 8) {
+        appState.checksByDate[todayKey].enough_water = false;
+      }
+
+      saveState();
+      renderTodayTab();
+    }
+
+    function changeWaterCount(delta) {
+      const todayKey = formatDateKey(getVirtualToday());
+      const current = appState.waterByDate[todayKey] || 0;
+      setWaterCount(current + delta);
+    }
+
+    function saveMealMemo(mealType, text) {
+      const todayKey = formatDateKey(getVirtualToday());
+      if (!appState.memosByDate[todayKey]) {
+        appState.memosByDate[todayKey] = {};
+      }
+      appState.memosByDate[todayKey][mealType] = text;
+      saveState();
+    }
+
+    // ==================== WEEKLY SCHEDULE & WEIGHT PROGRESS ====================
+    function renderWeeklySchedule() {
+      const lang = appState.lang === 'vi' ? 'vi' : 'en';
+      const container = document.getElementById('weekly-schedule-list');
+      container.innerHTML = '';
+
+      DAYS_ORDER.forEach(dayCode => {
+        const plan = WORKOUT_PLAN[dayCode];
+        const card = document.createElement('div');
+        card.className = 'quilt-patch p-4 space-y-2.5';
+        card.innerHTML = `
+          <div class="flex items-center justify-between border-b-2 border-dashed border-[#79A3C1] pb-2">
+            <span class="font-geo text-sm font-black uppercase text-[#143B58]">${DAY_FULL_NAMES[lang][dayCode]}</span>
+            <button onclick="jumpToDay('${dayCode}')" class="quilt-btn btn-crimson text-[10px] font-geo font-black uppercase px-2.5 py-1 rounded-xl">
+              ${t('openDayBtn')}
+            </button>
+          </div>
+          <div class="space-y-2 text-xs">
+            <div class="bg-[#EDE4D0] p-2.5 rounded-2xl border-2 border-[#143B58]">
+              <div class="font-geo text-[10px] font-black uppercase text-[#C93B2B]">${t('morningShort')}</div>
+              <div class="font-bold text-[#143B58] mt-0.5">${plan.morning.title[lang]}</div>
+              <div class="text-[11px] text-[#143B58]/75 mt-0.5">${plan.morning.focus[lang]}</div>
+            </div>
+            <div class="bg-[#F5EFE2] p-2.5 rounded-2xl border-2 border-[#79A3C1]">
+              <div class="font-geo text-[10px] font-black uppercase text-[#143B58]">${t('eveningShort')}</div>
+              <div class="font-bold text-[#143B58] mt-0.5">${plan.evening.title[lang]}</div>
+              <div class="text-[11px] text-[#143B58]/75 mt-0.5">${plan.evening.focus[lang]}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function jumpToDay(dayCode) {
+      selectedDayKey = dayCode;
+      switchTab('today');
+      renderTodayTab();
+    }
+
+    function renderWeightProgress() {
+      const startW = 56.0;
+      const milestone1 = 48.0;
+      const goalW = 46.0;
+      const curr = Number(appState.weight) || 56.0;
+
+      document.getElementById('current-weight-display').textContent = curr.toFixed(1);
+      document.getElementById('weight-input').value = curr.toFixed(1);
+
+      const lost = Math.max(0, startW - curr);
+      const toM1 = Math.max(0, curr - milestone1);
+      const toGoal = Math.max(0, curr - goalW);
+
+      document.getElementById('weight-lost').textContent = lost.toFixed(1);
+      document.getElementById('weight-to-m1').textContent = toM1.toFixed(1);
+      document.getElementById('weight-to-goal').textContent = toGoal.toFixed(1);
+
+      const totalSpan = startW - goalW;
+      const pct = Math.min(100, Math.max(0, ((startW - curr) / totalSpan) * 100));
+      document.getElementById('weight-progress-bar').style.width = `${pct}%`;
+    }
+
+    function updateWeight() {
+      const val = parseFloat(document.getElementById('weight-input').value);
+      if (isNaN(val) || val < 35 || val > 100) {
+        showToast(t('toastInvalidWeight'));
+        return;
+      }
+      appState.weight = Math.round(val * 10) / 10;
+      saveState();
+      renderWeightProgress();
+      animateMascotCat();
+      showToast(t('toastSavedWeight', { w: appState.weight.toFixed(1) }));
+      if (appState.weight <= 48.0) {
+        launchConfetti();
+      }
+    }
+
+    // ==================== BACKUP & RESTORE ====================
+    function exportBackupFile() {
+      try {
+        const payload = {
+          app: 'PilatesStreakCozyCat',
+          exportedAt: new Date().toISOString(),
+          data: appState
+        };
+        const jsonStr = JSON.stringify(payload, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const dateTag = formatDateKey(new Date());
+        a.href = url;
+        a.download = `pilates-streak-backup-${dateTag}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(t('toastDownloadedJson'));
+      } catch (e) {
+        showToast(t('toastExportError'));
+      }
+    }
+
+    function importBackupFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          const restoredData = parsed.data ? parsed.data : parsed;
+          if (!Array.isArray(restoredData.completedDates)) {
+            throw new Error('Invalid format');
+          }
+          appState = { ...appState, ...restoredData };
+          recalculateStreak();
+          saveState();
+          applyStaticTranslations();
+          renderAll();
+          animateMascotCat();
+          launchConfetti();
+          showToast(t('toastRestoredFile', { n: appState.streak }));
+        } catch (err) {
+          showToast(t('toastInvalidFile'));
+        }
+        event.target.value = '';
+      };
+      reader.readAsText(file);
+    }
+
+    function copyBackupCode() {
+      try {
+        const payload = {
+          app: 'PilatesStreakCozyCat',
+          data: appState
+        };
+        const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+        const box = document.getElementById('backup-code-box');
+        box.value = code;
+        box.select();
+        box.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        showToast(t('toastCopiedCode'));
+      } catch (e) {
+        showToast(t('toastCopyError'));
+      }
+    }
+
+    function restoreFromBackupCode() {
+      const box = document.getElementById('backup-code-box');
+      const raw = (box.value || '').trim();
+      if (!raw) {
+        showToast(t('toastEmptyCode'));
+        return;
+      }
+      try {
+        let parsed = null;
+        if (raw.startsWith('{')) {
+          parsed = JSON.parse(raw);
+        } else {
+          const decoded = decodeURIComponent(escape(atob(raw)));
+          parsed = JSON.parse(decoded);
+        }
+        const restoredData = parsed.data ? parsed.data : parsed;
+        if (!Array.isArray(restoredData.completedDates)) {
+          throw new Error('Invalid data structure');
+        }
+        appState = { ...appState, ...restoredData };
+        recalculateStreak();
+        saveState();
+        applyStaticTranslations();
+        renderAll();
+        animateMascotCat();
+        launchConfetti();
+        showToast(t('toastRestoredCode', { n: appState.streak }));
+      } catch (e) {
+        showToast(t('toastInvalidCode'));
+      }
+    }
+
+    // ==================== TAB NAVIGATION & FOOD FILTER ====================
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.className = 'nav-btn flex flex-col items-center justify-center py-1.5 rounded-2xl text-[#F5EFE2]/75 hover:bg-[#184A6E] transition';
+      });
+      const activeBtn = document.getElementById(`nav-${tabName}`);
+      activeBtn.className = 'nav-btn flex flex-col items-center justify-center py-1.5 rounded-2xl bg-[#F5EFE2] text-[#143B58] border-2 border-[#143B58] shadow-[2px_2px_0px_#0D293E] transition';
+    }
+
+    function filterFood(type) {
+      const btns = {
+        all: document.getElementById('food-filter-all'),
+        good: document.getElementById('food-filter-good'),
+        avoid: document.getElementById('food-filter-avoid')
+      };
+      Object.keys(btns).forEach(k => {
+        btns[k].className = k === type
+          ? 'quilt-btn btn-crimson py-2 rounded-xl font-geo text-[11px] font-black uppercase'
+          : 'quilt-btn btn-cream py-2 rounded-xl font-geo text-[11px] font-black uppercase';
+      });
+
+      const goodCard = document.getElementById('food-card-good');
+      const avoidCard = document.getElementById('food-card-avoid');
+      if (type === 'all') {
+        goodCard.classList.remove('hidden');
+        avoidCard.classList.remove('hidden');
+      } else if (type === 'good') {
+        goodCard.classList.remove('hidden');
+        avoidCard.classList.add('hidden');
+      } else {
+        goodCard.classList.add('hidden');
+        avoidCard.classList.remove('hidden');
+      }
+    }
+
+    // ==================== WORKOUT COUNTDOWN TIMER ====================
+    let timerInterval = null;
+    let timerSecondsLeft = 15 * 60;
+    let timerInitialSeconds = 15 * 60;
+    let isTimerRunning = false;
+
+    function openTimerModal(workoutTitle, defaultMinutes) {
+      document.getElementById('timer-workout-name').textContent = workoutTitle;
+      const mins = [10, 15, 20].includes(defaultMinutes) ? defaultMinutes : 15;
+      setTimerMinutes(mins);
+      document.getElementById('timer-modal').classList.remove('hidden');
+    }
+
+    function closeTimerModal() {
+      pauseTimer();
+      document.getElementById('timer-modal').classList.add('hidden');
+    }
+
+    function setTimerMinutes(mins) {
+      pauseTimer();
+      timerInitialSeconds = mins * 60;
+      timerSecondsLeft = timerInitialSeconds;
+      updateTimerDisplay();
+
+      [10, 15, 20].forEach(m => {
+        const el = document.getElementById(`preset-${m}`);
+        el.className = m === mins
+          ? 'quilt-btn btn-crimson py-2 rounded-xl font-geo text-xs font-black'
+          : 'quilt-btn btn-cream py-2 rounded-xl font-geo text-xs font-black';
+      });
+      document.getElementById('timer-status-text').textContent = t('timerSetMsg', { m: mins });
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSecondsLeft / 60);
+      const s = timerSecondsLeft % 60;
+      document.getElementById('timer-display').textContent =
+        `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function toggleTimer() {
+      if (isTimerRunning) {
+        pauseTimer();
+      } else {
+        startTimer();
+      }
+    }
+
+    function startTimer() {
+      if (timerSecondsLeft <= 0) {
+        timerSecondsLeft = timerInitialSeconds;
+      }
+      isTimerRunning = true;
+      const btn = document.getElementById('timer-toggle-btn');
+      btn.textContent = t('pauseTimerBtn');
+      btn.className = 'quilt-btn btn-navy py-3 rounded-2xl font-geo font-black text-xs uppercase tracking-wider';
+      document.getElementById('timer-status-text').textContent = t('timerRunningMsg');
+
+      timerInterval = setInterval(() => {
+        timerSecondsLeft--;
+        updateTimerDisplay();
+        if (timerSecondsLeft <= 0) {
+          pauseTimer();
+          document.getElementById('timer-status-text').textContent = t('timerDoneMsg');
+          animateMascotCat();
+          launchConfetti();
+          showToast(t('timerDoneMsg'));
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      isTimerRunning = false;
+      clearInterval(timerInterval);
+      const btn = document.getElementById('timer-toggle-btn');
+      if (btn) {
+        btn.textContent = t('startTimerBtn');
+        btn.className = 'quilt-btn btn-crimson py-3 rounded-2xl font-geo font-black text-xs uppercase tracking-wider';
+      }
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      timerSecondsLeft = timerInitialSeconds;
+      updateTimerDisplay();
+      document.getElementById('timer-status-text').textContent = t('timerResetMsg');
+    }
+
+    // ==================== QUILT PALETTE CONFETTI & TOAST ====================
+    let toastTimeout = null;
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const text = document.getElementById('toast-message');
+      text.textContent = msg;
+      box.classList.remove('opacity-0', '-translate-y-2');
+      box.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        box.classList.add('opacity-0', '-translate-y-2');
+        box.classList.remove('opacity-100', 'translate-y-0');
+      }, 3200);
+    }
+
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#F5EFE2', '#C93B2B', '#90B8D4', '#143B58'];
+      const shapes = ['rect', 'circle'];
+      const pieces = Array.from({ length: 80 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height * 0.4 - canvas.height * 0.2,
+        size: Math.random() * 8 + 5,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        shape: shapes[Math.floor(Math.random() * shapes.length)],
+        vx: (Math.random() - 0.5) * 4.5,
+        vy: Math.random() * 3.8 + 2.5,
+        rot: Math.random() * 360,
+        vRot: (Math.random() - 0.5) * 9
+      }));
+
+      let frame = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vRot;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.strokeStyle = '#143B58';
+          ctx.lineWidth = 1.2;
+          if (p.shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+          } else {
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.strokeRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          }
+          ctx.restore();
+        });
+        frame++;
+        if (frame < 90) {
+          requestAnimationFrame(animate);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    // ==================== INITIALIZE ====================
+    function renderAll() {
+      renderHeaderAndStreak();
+      renderTodayTab();
+      renderWeeklySchedule();
+      renderWeightProgress();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      selectedDayKey = getDayKeyFromDate(getVirtualToday());
+      applyStaticTranslations();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
